@@ -96,4 +96,72 @@ def test_pode_realizar_operacao_and_bit_a_bit():
     resultado = bs1 & bs2
 
     assert resultado == esperado
+
+
+@pytest.mark.parametrize(
+        "valor, index, resultado",
+        [
+            (0b0001, 0, 1),
+            (0b0010, 1, 1),
+            (0b0100, 2, 1),
+            (0b1000, 3, 1),
+            (0b1110, 0, 0),
+            (0b1101, 1, 0),
+            (0b1011, 2, 0),
+            (0b0111, 3, 0),
+        ]
+)
+def test_bitstring_getitem_deve_retornar_valor_bit(valor, index, resultado):
+    bs = BitString(bits=4, valor=valor)
+
+    assert bs[index] == resultado, f'valor retornado ({bs[index]}) diferente do esperado ({resultado})'
+
+
+def test_bitstring_getitem_fora_do_intervalo_gera_erro():
+    total_bits = 4
+    bs = BitString(bits=total_bits, valor=0)
+
+    with pytest.raises(IndexError, match='.*indice fora do intervalo.*') as excinfo_maior:
+        _ = bs[total_bits]
+    
+    with pytest.raises(IndexError, match='.*indice fora do intervalo.*') as excinfo_menor:
+        _ = bs[-1]
+    
+    assert excinfo_maior.type is IndexError, 'erro diferente do esperado'
+    assert excinfo_menor.type is IndexError, 'erro diferente do esperado'
+
+
+@pytest.mark.parametrize(
+        "valor, index, valor_bit, resultado",
+        [
+            (0b0000, 0, 1, 0b0001),
+            (0b0000, 1, 1, 0b0010),
+            (0b0000, 2, 1, 0b0100),
+            (0b0000, 3, 1, 0b1000),
+            (0b1111, 0, 0, 0b1110),
+            (0b1111, 1, 0, 0b1101),
+            (0b1111, 2, 0, 0b1011),
+            (0b1111, 3, 0, 0b0111),
+        ]
+)
+def test_bitstring_setitem_deve_retornar_valor_bit(valor, index, valor_bit, resultado):
+    bs = BitString(bits=4, valor=valor)
+
+    bs[index] = valor_bit
+
+    assert bs.valor == resultado, f'valor retornado ({bs.valor}) para indice {index} diferente do esperado ({resultado})'
+
+
+def test_bitstring_setitem_fora_do_intervalo_gera_erro():
+    total_bits = 4
+    bs = BitString(bits=total_bits, valor=0)
+
+    with pytest.raises(IndexError, match='.*indice fora do intervalo.*') as excinfo_maior:
+        bs[total_bits] = 0
+    
+    with pytest.raises(IndexError, match='.*indice fora do intervalo.*') as excinfo_menor:
+        bs[-1] = 0
+    
+    assert excinfo_maior.type is IndexError, f'{excinfo_maior.type} diferente de IndexError'
+    assert excinfo_menor.type is IndexError, f'{excinfo_menor.type} diferente de IndexError'
     

@@ -31,7 +31,7 @@ def test_criar_cromossomo_com_valor_e_tamanho_deve_funcionar(tamanhoCromo, valor
     assert cr.valor == valorCromo, 'valor diferente do configurado'
 
 
-def test_criar_cromossomo_com_tamanho_nulo_ggera_erro():
+def test_criar_cromossomo_com_tamanho_nulo_gera_erro():
     
     with pytest.raises(ValueError) as excinfo:
         Cromossomo(tamanho=0)
