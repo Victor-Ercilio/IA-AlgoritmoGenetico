@@ -4,10 +4,11 @@ from .bitstring import BitString
 class Cromossomo(BitString):
     
 
-    def __init__(self, tamanho=None, bitstring=None, aptidao=0.0, taxa_mutacao=0.0):
+    def __init__(self, tamanho=None, bitstring=None, aptidao=0.0, aptidao_acum=0.0, taxa_mutacao=0.0):
         super().__init__(bits=tamanho, valor=bitstring)
-        self.aptidao = aptidao
-        self.taxa_mutacao = taxa_mutacao
+        self.taxa_mutacao: float = taxa_mutacao
+        self.aptidao: float = aptidao
+        self.aptidao_acum: float = aptidao_acum
 
 
     def __xor__(self, other):
@@ -34,9 +35,17 @@ class Cromossomo(BitString):
     
 
     @classmethod
-    def getrandom(cls, bits):
+    def getrandom(cls, bits, taxa_mutacao=0.0):
         bs = super().getrandom(bits)
-        return Cromossomo(tamanho=bs.bits, bitstring=bs.valor)
+        return Cromossomo(tamanho=bs.bits, bitstring=bs.valor, taxa_mutacao=taxa_mutacao)
+    
+    
+    @classmethod
+    def getpopulacao(cls, tamanho: int, bits: int, taxa_mutacao: float):
+        if tamanho < 0 or bits < 0:
+            raise ValueError('tamanho da população ou da quantidade de bits não pode ser negativo')
+        
+        return [cls.getrandom(bits, taxa_mutacao=taxa_mutacao) for _ in range(tamanho)]
     
 
     def aplicar_mutacao(self) -> None:
