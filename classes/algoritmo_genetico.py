@@ -22,7 +22,7 @@ class AlgoritmoGenetico:
                 ):
         self.bits = tamanho_bits
         self.pop = populacao
-        self.pop_intermediaria = []
+        self.pop_intermediaria: list[Cromossomo] = []
         self.geracao = 0
         self.total_geracoes = total_geracoes
         self.N = total_individuos_por_geracao
@@ -64,11 +64,10 @@ class AlgoritmoGenetico:
     
     
     def iniciar_populacao(self):
-        populacao = []
+        if not self.pop:
+            self.pop = []
         for _ in range(self.N):
-            populacao.append((Cromossomo.getrandom(self.bits), 0.0))
-        
-        self.pop = populacao
+            self.pop.append(Cromossomo.getrandom(self.bits, self.taxa_mutacao))
 
 
     def avaliar_populacao(self):
