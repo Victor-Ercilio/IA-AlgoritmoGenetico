@@ -71,14 +71,21 @@ class AlgoritmoGenetico:
 
 
     def avaliar_populacao(self):
-        total = 0.0
-        for cr in self.pop:
-            apt = self.aptidao(cr[0])
-            cr[0].aptidao = apt
-            total += cr[0]
-        
-
-        
+        if self.tipo_selecao == Selecao.ROLETA:
+            total = 0.0
+            for cromossomo in self.pop:
+                aptidao = self.aptidao(cromossomo)
+                cromossomo.aptidao = aptidao
+                total += aptidao
+        elif self.tipo_selecao == Selecao.TORNEIO:
+            pass
+        elif self.tipo_selecao == Selecao.ORDEM:
+            pass
+        else:
+            if self.tipo_selecao not in Selecao:
+                raise NotImplementedError('tipo de seleção desconhecida')
+            else:
+                raise NotImplementedError('tipo de seleção não implementada')
 
 
     def selecionar_populacao(self):
@@ -87,7 +94,7 @@ class AlgoritmoGenetico:
 
     def realizar_crossover(self):
         pass
-
+    
 
     def realizar_mutacao(self):
         pass
