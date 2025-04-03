@@ -97,7 +97,8 @@ class AlgoritmoGenetico:
     
 
     def realizar_mutacao(self):
-        pass
+        for cromossomo in  self.pop_intermediaria:
+            cromossomo.aplicar_mutacao()
 
 
     def __formato_header(self) -> str:
