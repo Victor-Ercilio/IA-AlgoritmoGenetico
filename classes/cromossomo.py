@@ -51,15 +51,7 @@ class Cromossomo(BitString):
     def aplicar_mutacao(self) -> None:
         fracao = fractions.Fraction(self.taxa_mutacao).limit_denominator()
         num_max = int(fracao.denominator / fracao.numerator)
-        novo_valor = ''
 
-        # for i in f'{super().__str__()}':
-        #     if random.randrange(0, num_max) == 0:
-        #         novo_valor += '1' if i == '0' else '0'
-        #         continue
-        #     novo_valor += i
-        
-        # self.valor = int(novo_valor, base=2)
         for i in range(self.tamanho):
             if random.randrange(0, num_max) == 0:
                 self[i] = 1 if self[i] == 0 else 0
