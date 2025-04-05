@@ -4,7 +4,7 @@ class BitString:
 
 
     def __init__(self, bits:int=None, valor:int=None, param:dict[str,int]=None):
-        if bits == 0:
+        if bits <= 0:
             raise ValueError
         
         self.bits: int = bits
@@ -25,17 +25,17 @@ class BitString:
         if index < 0 or index >= self.bits:
             raise IndexError('indice fora do intervalo')
         
-        return 0 if self.valor & (1 << index) == 0 else 1
+        return 0 if (self.valor & (1 << index)) == 0 else 1
 
 
     def __setitem__(self, index, value) -> None:
         if index < 0 or index >= self.bits:
             raise IndexError('indice fora do intervalo')
         
-        if value == 0:
-            self.valor -= 2**index
+        if value == 1:
+            self.valor |= (1 << index)
         else:
-            self.valor += 2**index
+            self.valor -= self[index] * 2**index
 
 
     def __eq__(self, value) -> bool:
