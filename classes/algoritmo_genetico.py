@@ -1,5 +1,6 @@
 from collections.abc import Callable
 from typing import Union
+from random import random
 from .cromossomo import Cromossomo
 from enums.metodos_selecao import Selecao
 
@@ -77,6 +78,10 @@ class AlgoritmoGenetico:
                 aptidao = self.aptidao(cromossomo)
                 cromossomo.aptidao = aptidao
                 total += aptidao
+            
+            for cromossomo in self.pop:
+                cromossomo.aptidao_proporcional = cromossomo.aptidao / total
+            
         elif self.tipo_selecao == Selecao.TORNEIO:
             pass
         elif self.tipo_selecao == Selecao.ORDEM:
