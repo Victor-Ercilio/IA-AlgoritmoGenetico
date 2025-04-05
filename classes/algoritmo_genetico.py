@@ -89,7 +89,20 @@ class AlgoritmoGenetico:
 
 
     def selecionar_populacao(self):
-        pass
+        if self.tipo_selecao == Selecao.ROLETA:
+            self.pop.sort(key=lambda c: c.aptidao)
+            self.pop_intermediaria = []
+            while len(self.pop_intermediaria) < self.N:
+                aptidao_min = random()
+                aptidao_total = 0
+                index = -1
+                while aptidao_total < aptidao_min:
+                    index += 1
+                    aptidao_total += self.pop[index].aptidao_proporcional
+                self.pop_intermediaria.append(self.pop[index])
+        else:
+            raise NotImplementedError(f'tipo  de seleção ({self.tipo_selecao}) não implementado')
+
 
 
     def realizar_crossover(self):
