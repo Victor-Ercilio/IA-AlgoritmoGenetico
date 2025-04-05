@@ -13,9 +13,12 @@ class Custo(Enum):
     MINIMIZAR = 2
 
 
-VIA = Via.UNICA
+CUSTO = Custo.MINIMIZAR
+VIA = Via.DUPLA
+
+# Máximo 52, exceto 4 que não foi implementado ainda
 TOTAL_CIDADES = 5
-CIDADES = string.ascii_uppercase[:TOTAL_CIDADES]
+CIDADES = (string.ascii_uppercase+string.ascii_lowercase)[:TOTAL_CIDADES]
 ORIGEM = CIDADES[0]
 
 
@@ -34,7 +37,11 @@ class Rotas:
     
 
     def __repr__(self):
-        return f'Rota({self.rota}, {self.custo}, {self.custo_prop})'
+        return f'Rota({self.rota}, {self.custo}, {self.custo_prop}, {self.nota}, {self.nota_prop})'
+    
+
+    def copy(self):
+        return Rotas(self.rota, self.custo, self.custo_prop, self.nota, self.nota_prop)
     
 
     def aplicar_mutacao(self, taxa: float):
@@ -109,7 +116,16 @@ def calcular_custo_entre_cidades(rota: str) -> int:
             case "ED": return 2
             case _: ValueError(f'rota entre cidades ({rota}) desconhecida')
     
-    
+    if TOTAL_CIDADES > 5 and VIA == Via.UNICA:
+        return 1 if rota in CIDADES else 2
+
+    if TOTAL_CIDADES > 5 and VIA == Via.DUPLA:
+        if rota in CIDADES:
+            return 1
+        elif rota in CIDADES[::-1]:
+            return 2
+        else:
+            return 3
 
 
 def calcular_custo_caminho(caminho: str) -> int:
@@ -143,20 +159,27 @@ def avaliar_rotas(rotas: list[Rotas]):
 
     for r in rotas:
         r.custo = calcular_custo_caminho(r.rota)
+        total += r.custo
         if r.custo > maior_custo:
             maior_custo = r.custo
     
-    maior_custo += 1
-    for r in rotas:
-        r.custo = maior_custo - r.custo
-        total += r.custo
-
-    # pot = math.floor(math.log10(total)) - 1
     for r in rotas:
         r.custo_prop = r.custo / total
-        # r.custo_prop = total / (r.custo * 10**pot)
-    
-    rotas.sort(key=lambda rota: rota.custo)
+
+    if CUSTO == Custo.MINIMIZAR:
+        total = 0
+        maior_custo += 1
+        for r in rotas:
+            r.nota = maior_custo - r.custo
+            total += r.nota
+        
+        for r in rotas:
+            r.nota_prop = r.nota / total
+        
+        rotas.sort(key=lambda rota: rota.nota, reverse=True)
+
+    else:
+        rotas.sort(key=lambda rota: rota.custo, reverse=True)   
 
 
 def selecionar_rota(rotas: list[Rotas]) -> Rotas:
@@ -164,23 +187,23 @@ def selecionar_rota(rotas: list[Rotas]) -> Rotas:
     total = 0
 
     for r in rotas:
-        total += r.custo_prop
+        total += r.custo_prop if CUSTO == Custo.MAXIMIZAR else r.nota_prop
         if total >= aleatorio:
             return r
 
 
 def crossover(rota_1: Rotas, rota_2: Rotas, corte: int=None) -> tuple[Rotas, Rotas]:
     if not corte:
-        corte = randrange(len(rota_1.rota))
+        corte = randrange(1,len(rota_1.rota)-1)
     ini1 = rota_1.rota[:corte]
     ini2 = rota_2.rota[:corte]
     fim1 = rota_1.rota[corte:]
     fim2 = rota_2.rota[corte:]
 
     if set(fim1) ^ set(fim2):
-        dif = set(fim1) ^ set(fim2)
-        set_i2f1, set_i1f2 = set(ini2) & set(fim1) & dif, set(ini1) & set(fim2) & dif
-        set_dif_i2f1, set_dif_i1f2 = set_i2f1 ^ dif, set_i1f2 ^ dif
+        cidades_dif = set(fim1) ^ set(fim2)
+        set_i2f1, set_i1f2 = set(ini2) & set(fim1) & cidades_dif, set(ini1) & set(fim2) & cidades_dif
+        set_dif_i2f1, set_dif_i1f2 = set_i2f1 ^ cidades_dif, set_i1f2 ^ cidades_dif
 
         while len(set_i2f1) > 0:
             ini2 = ini2.replace(set_i2f1.pop(), set_dif_i2f1.pop()) 
@@ -191,7 +214,11 @@ def crossover(rota_1: Rotas, rota_2: Rotas, corte: int=None) -> tuple[Rotas, Rot
 
 
 def criar_prox_geracao(rotas: list[Rotas], taxa_mut: float, taxa_cros: float) -> list[Rotas]:
-    rotas.sort(key=lambda rota: rota.custo, reverse=True)
+    if CUSTO == Custo.MAXIMIZAR:
+        rotas.sort(key=lambda rota: rota.custo, reverse=True)
+    else:
+        rotas.sort(key=lambda rota: rota.custo)
+
     tamanho: int = len(rotas)
     prox_gercao:list[Rotas] = []
 
@@ -202,18 +229,68 @@ def criar_prox_geracao(rotas: list[Rotas], taxa_mut: float, taxa_cros: float) ->
         r1, r2 = selecionar_rota(rotas), selecionar_rota(rotas)
         if random() <= taxa_cros:
             r1, r2 = crossover(r1, r2)
-        r1.aplicar_mutacao(taxa_mutacao)
-        r2.aplicar_mutacao(taxa_mutacao)
+        r1.aplicar_mutacao(taxa_mut)
+        r2.aplicar_mutacao(taxa_mut)
         prox_gercao.append(r1)
         prox_gercao.append(r2)
     
     return prox_gercao
 
 
+def get_cabecalho(tamanho: int) -> str:
+    if CUSTO == Custo.MAXIMIZAR:
+        return f'\t{"Rotas":^{tamanho}}  {"Custo":^{tamanho}}  {"Proporção Custo":^{tamanho}}'
+    return f'\t{"Rotas":^{tamanho}}  {"Custo":^{tamanho}}  {"Proporção Custo":^{tamanho}}  {"Nota":^{tamanho}}  {"Proporção Nota":^{tamanho}}'
+
+
+def get_formato_corpo(tamanho: int) -> str:
+    if CUSTO == Custo.MAXIMIZAR:
+        return f'\t{{:^{tamanho}}}  {{:^{tamanho}.2f}}  {{:^{tamanho}.2%}}'
+    return f'\t{{:^{tamanho}}} {{:^{tamanho}.2f}}  {{:^{tamanho}.2%}}  {{:^{tamanho}.2f}}  {{:^{tamanho}.2%}}'
+
+
 def exibir_geracao(geracao: list[Rotas]) -> None:
-    print(f'\t{"Rotas":^12}  {"Custo":^12}  {"Proporcao":^12}')
+    tam = 16
+    forma = get_formato_corpo(tam)
+    print(get_cabecalho(tam))
     for r in geracao:
-        print(f'\t{r.rota:^12}  {r.custo:^12.2f}  {r.custo_prop:^12.2%}')
+        print(forma.format(r.rota, r.custo, r.custo_prop, r.nota, r.nota_prop))
+
+
+def exibir_problema(taxa_mutacao:float, taxa_crossover:float, total_rotas:int, geracoes:int) -> None:
+    print(f"""
+    Parâmetros
+    Tipo problema: {CUSTO}
+    Quantidade de cidades: {TOTAL_CIDADES}
+    Cidades: {CIDADES}
+    Via: {VIA}
+
+    Gerações: {geracoes}
+    Taxa mutação: {taxa_mutacao:.2%}
+    Taxa crossover: {taxa_crossover:.2%}
+    Quantidade de rotas por geração: {total_rotas+1}
+
+    """)
+
+
+def exibir_melhores_resultados(melhores: list[tuple[int, Rotas]]) -> None:
+    tam = 16
+    forma = get_formato_corpo(tam)
+    linhas = ''
+    geracao = '\tGeração'
+    for i in melhores:
+        linhas += f'{geracao:>{len(geracao)}} {i[0]}  {forma.format(i[1].rota, i[1].custo, i[1].custo_prop, i[1].nota, i[1].nota_prop)}\n'
+
+    print(f"""
+    Melhores Resultados
+    {"":{len(geracao)}}\t{get_cabecalho(tam)}
+    {linhas}
+    """)
+
+
+def exibir_populacao_incial(rotas: list[Rotas]) -> None:
+    print('\nPopulação Inicial')
+    exibir_geracao(rotas)
 
 
 def exibir_custos_todas_rotas_possiveis(rotas: list[Rotas]) -> None:
@@ -228,33 +305,33 @@ def exibir_custos_todas_rotas_possiveis(rotas: list[Rotas]) -> None:
 
 if __name__ == '__main__':
     try:
-        print('-'*20, 'INICIO DO PROGRAMA', '-'*20)
+        print('-'*50, 'INICIO DO PROGRAMA', '-'*50)
+
         qtd_rotas: int = 8
+        geracoes: int = 4
+        geracao: int = 0
+        taxa_mutacao: float = 0.001
+        taxa_crossover: float = 0.7
+        melhores_resultados: list[tuple[int, Rotas]] = []
+
+        exibir_problema(taxa_mutacao, taxa_crossover, qtd_rotas, geracoes)
+
         rotas: list[Rotas] = [ Rotas(gerar_caminho()) for _ in range(qtd_rotas) ]
         avaliar_rotas(rotas)
-        geracoes: int = 4
-        geracao = 0
-        taxa_mutacao = 0.001
-        taxa_crossover = 0.7
-
-        print('\nPopulação Inicial')
-        exibir_geracao(rotas)
+        exibir_populacao_incial(rotas)
         while geracao < geracoes:
             geracao += 1
-            
+
             rotas = criar_prox_geracao(rotas, taxa_mutacao, taxa_crossover)
             avaliar_rotas(rotas)
 
+            melhores_resultados.append((geracao, rotas[0].copy()))
             print(f'Geração {geracao}')
             exibir_geracao(rotas)
 
-        
-
+        exibir_melhores_resultados(melhores_resultados)
 
     except Exception as e:
-        raise e
+        print(f'Erro: {e}')
     finally:
-        print('-'*20, 'FIM PROGRAMA', '-'*20)
-
-
-
+        print('-'*50, 'FIM PROGRAMA', '-'*50)
