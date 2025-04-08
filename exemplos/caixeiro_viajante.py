@@ -185,9 +185,14 @@ def avaliar_rotas(rotas: list[Rotas]):
 
     if CUSTO == Custo.MINIMIZAR:
         total = 0
-        maior_custo += 1
+        maior_nota = 0
         for r in rotas:
             r.nota = maior_custo - r.custo
+            if r.nota > maior_nota:
+                maior_nota = r.nota
+        
+        for r in rotas:
+            r.nota = (r.nota * 10.0) / maior_nota
             total += r.nota
         
         for r in rotas:
@@ -196,6 +201,9 @@ def avaliar_rotas(rotas: list[Rotas]):
         rotas.sort(key=lambda rota: rota.nota, reverse=True)
 
     else:
+        for r in rotas:
+            r.nota = (r.custo * 10.0) / maior_custo
+
         rotas.sort(key=lambda rota: rota.custo, reverse=True)   
 
 
