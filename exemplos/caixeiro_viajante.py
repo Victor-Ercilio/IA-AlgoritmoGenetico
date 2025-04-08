@@ -1,6 +1,6 @@
 from random import randrange, random
 from enum import Enum
-import string, itertools, math
+import string, itertools, fractions
 
 
 class Via(Enum):
@@ -20,6 +20,22 @@ VIA = Via.DUPLA
 TOTAL_CIDADES = 5
 CIDADES = (string.ascii_uppercase+string.ascii_lowercase)[:TOTAL_CIDADES]
 ORIGEM = CIDADES[0]
+
+
+def realizar_operacao(taxa: float) -> bool:
+    """
+    Retorna se uma operação qualquer deve ser realizada
+    com base em sua frequência de execução.
+    :taxa: float entre 0 e 1
+
+    Ex: se uma função precisa ser executada aleatoriamente em 
+    30% das vezes que é chamada, sua taxa é de 0.3.
+    """
+    if taxa < 0 or taxa > 1:
+        raise ValueError
+
+    fr = fractions.Fraction(taxa).limit_denominator()
+    return randrange(fr.denominator) < fr.numerator
 
 
 class Rotas:
