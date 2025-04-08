@@ -145,8 +145,9 @@ def calcular_custo_entre_cidades(rota: str) -> int:
 
 
 def calcular_custo_caminho(caminho: str) -> int:
-    if len(caminho) == 0:
-        return 0
+    if len(caminho) < 2:
+        raise ValueError('caminho inválido, mínimo 2 cidades')
+    
     if len(caminho) == 2:
         return calcular_custo_entre_cidades(caminho)
     return calcular_custo_entre_cidades(caminho[:2]) + calcular_custo_caminho(caminho[1:])
