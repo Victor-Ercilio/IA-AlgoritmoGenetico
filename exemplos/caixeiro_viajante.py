@@ -248,7 +248,7 @@ def criar_prox_geracao(rotas: list[Rotas], taxa_mut: float, taxa_cros: float) ->
     prox_gercao:list[Rotas] = []
 
     # Elitismo - o melhor é copiado direto para próxima geração
-    prox_gercao.append(rotas[0])
+    prox_gercao.append(rotas[0].copy())
 
     while len(prox_gercao) < tamanho:
         r1, r2 = selecionar_rota(rotas), selecionar_rota(rotas)
