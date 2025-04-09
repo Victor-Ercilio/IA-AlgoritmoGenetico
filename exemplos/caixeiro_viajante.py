@@ -29,7 +29,9 @@ def realizar_operacao(taxa: float) -> bool:
     :taxa: float entre 0 e 1
 
     Ex: se uma função precisa ser executada aleatoriamente em 
-    30% das vezes que é chamada, sua taxa é de 0.3.
+    30% das vezes que é chamada, sua taxa é de 0.3 ou 3/10.
+    Um número aleatório é escolhido de 0 até 9 (10-1) e se for
+    menor que 3 então é retornado verdadeiro.
     """
     if taxa < 0 or taxa > 1:
         raise ValueError
@@ -165,11 +167,8 @@ def gerar_caminho():
 
 def avaliar_rotas(rotas: list[Rotas]):
     """
-    Calcula o custo individual de cada rota e guarda a de maior custo.
-    A de maior custo servirá para inverter a pontuação, ou seja, até o momento,
-    as rotas mais custosas tem maior pontuação, após a inverção a de maior custo
-    terá custo 1 enquanto a de menor terá um custo alto. Entenda o custo como
-    uma nota, a melhor rota tem menor custo e por isso uma nota mais alta.
+    Calcula o custo individual de cada rota e sua proporção
+    com relação a de maior custo.
     """
     total: int = 0
     maior_custo: int = 0
