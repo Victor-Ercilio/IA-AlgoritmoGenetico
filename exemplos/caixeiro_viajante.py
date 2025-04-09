@@ -1,6 +1,6 @@
 from random import randrange, random
 from enum import Enum
-import string, itertools, fractions, time
+import string, itertools, fractions
 
 
 class Via(Enum):
@@ -428,9 +428,7 @@ if __name__ == '__main__':
                 print(f'Geração {geracao}')
                 exibir_geracao(rotas)
             else:
-
                 exibir_geracao_numero('\n\nGeração', geracao, geracoes)
-                time.sleep(0.2)
 
         exibir_melhores_resultados(melhores_resultados)
 
