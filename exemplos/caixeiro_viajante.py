@@ -40,6 +40,30 @@ def realizar_operacao(taxa: float) -> bool:
     return randrange(fr.denominator) < fr.numerator
 
 
+class Contador:
+
+    def __init__(self):
+        self.mutacoes = 0
+        self.crossovers = 0
+        self.total_mut = 0
+        self.total_cros = 0
+    
+
+    def mutacao(self) -> None:
+        self.mutacoes += 1
+
+
+    def crossover(self) -> None:
+        self.crossovers += 1
+
+    
+    def reset(self) -> None:
+        self.total_mut += self.mutacoes
+        self.total_cros += self.crossovers
+        self.mutacoes = 0
+        self.crossovers = 0
+
+
 class Rotas:
 
     def __init__(self, rota:str, custo:float=0.0, custo_proporcional:float=0.0, nota:float=0.0, nota_proporcional:float=0.0):
