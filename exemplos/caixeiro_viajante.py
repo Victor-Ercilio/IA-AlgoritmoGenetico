@@ -86,12 +86,14 @@ class Rotas:
         return Rotas(self.rota, self.custo, self.custo_prop, self.nota, self.nota_prop)
     
 
-    def aplicar_mutacao(self, taxa: float):
+    def aplicar_mutacao(self, taxa: float, contador: Contador=None):
         cidades = self.rota[1:len(self.rota)-1]
 
         if len(cidades) > 1:
             for i in range(len(cidades)):
                 if realizar_operacao(taxa):
+                    if contador:
+                        contador.mutacao()
                     atual = cidades[i]
                     outras = cidades.replace(cidades[i], '') 
                     index_outra = randrange(len(outras))
@@ -268,15 +270,14 @@ def crossover(rota_1: Rotas, rota_2: Rotas, corte: int=None) -> tuple[Rotas, Rot
     fim1 = rota_1.rota[corte:]
     fim2 = rota_2.rota[corte:]
 
-    if set(fim1) ^ set(fim2):
+    cidades_duplicadas = set(fim1) ^ set(fim2)
+    
+    if cidades_duplicadas:
+        cidades_a_substituir_i2f1 = set(ini2) & set(fim1) & cidades_duplicadas
+        cidades_a_substituir_i1f2 = set(ini1) & set(fim2) & cidades_duplicadas
         
-        cidades_sobressalentes = set(fim1) ^ set(fim2)
-
-        cidades_a_substituir_i2f1 = set(ini2) & set(fim1) & cidades_sobressalentes
-        cidades_a_substituir_i1f2 = set(ini1) & set(fim2) & cidades_sobressalentes
-        
-        cidades_substitutas_i2f1 = cidades_a_substituir_i2f1 ^ cidades_sobressalentes
-        cidades_substitutas_i1f2 = cidades_a_substituir_i1f2 ^ cidades_sobressalentes
+        cidades_substitutas_i2f1 = cidades_a_substituir_i2f1 ^ cidades_duplicadas
+        cidades_substitutas_i1f2 = cidades_a_substituir_i1f2 ^ cidades_duplicadas
 
         while len(cidades_a_substituir_i2f1) > 0:
             ini2 = ini2.replace(cidades_a_substituir_i2f1.pop(), cidades_substitutas_i2f1.pop()) 
@@ -287,7 +288,7 @@ def crossover(rota_1: Rotas, rota_2: Rotas, corte: int=None) -> tuple[Rotas, Rot
     return Rotas(ini1+fim2), Rotas(ini2+fim1)
 
 
-def criar_prox_geracao(rotas: list[Rotas], taxa_mut: float, taxa_cros: float) -> list[Rotas]:
+def criar_prox_geracao(rotas: list[Rotas], taxa_mut: float, taxa_cros: float, contador: Contador=None) -> list[Rotas]:
     if CUSTO == Custo.MAXIMIZAR:
         rotas.sort(key=lambda rota: rota.custo, reverse=True)
     else:
@@ -297,16 +298,18 @@ def criar_prox_geracao(rotas: list[Rotas], taxa_mut: float, taxa_cros: float) ->
     prox_gercao:list[Rotas] = []
 
     # Elitismo - o melhor é copiado direto para próxima geração
-    # prox_gercao.append(rotas[0].copy())
+    prox_gercao.append(rotas[0].copy())
 
     while len(prox_gercao) < tamanho:
         r1, r2 = selecionar_rota(rotas), selecionar_rota(rotas)
         
         if realizar_operacao(taxa_cros):
+            if contador:
+                contador.crossover()
             r1, r2 = crossover(r1, r2)
         
-        r1.aplicar_mutacao(taxa_mut)
-        r2.aplicar_mutacao(taxa_mut)
+        r1.aplicar_mutacao(taxa_mut, contador)
+        r2.aplicar_mutacao(taxa_mut, contador)
 
         if (tamanho - len(prox_gercao)) >= 2:
             prox_gercao.append(r1)
@@ -334,11 +337,11 @@ def get_formato_corpo(tamanho: int) -> str:
 
 
 def get_cabecalho_melhores(tamanho: int):
-    return f'\t{"Rotas":^{tamanho}}  {"Custo":^{tamanho}}  {"Média Custo":^{tamanho}}'
+    return f'\t{"Rotas":^{tamanho}}  {"Custo":^{tamanho}}  {"Média Custo":^{tamanho}}  {"Crossovers":^{tamanho}}  {"Mutações":^{tamanho}}'
 
 
 def get_formato_corpo_melhores(tamanho: int):
-    return f'\t{{:^{tamanho}}} {{:^{tamanho}.2f}}  {{:^{tamanho}.2f}}'
+    return f'\t{{:^{tamanho}}} {{:^{tamanho}.2f}}  {{:^{tamanho}.2f}}  {{:^{tamanho}}}  {{:^{tamanho}}}'
 
 
 def exibir_geracao(geracao: list[Rotas]) -> None:
@@ -392,13 +395,13 @@ def exibir_problema(taxa_mutacao:float, taxa_crossover:float, total_rotas:int, g
     """)
 
 
-def exibir_melhores_resultados(melhores: list[tuple[int, Rotas, float]]) -> None:
-    tam = 16
+def exibir_melhores_resultados(melhores: list[tuple[int, Rotas, float, int, int]]) -> None:
+    tam = 13
     forma = get_formato_corpo_melhores(tam)
     linhas = ''
     geracao = '\tGeração'
     for i in melhores:
-        linhas += f'{geracao:>{len(geracao)}} {i[0]}  {forma.format(i[1].rota, i[1].custo, i[2])}\n'
+        linhas += f'{geracao:>{len(geracao)}} {i[0]}  {forma.format(i[1].rota, i[1].custo, i[2], i[3], i[4])}\n'
 
     print(f"""
     Solução: {hilight_resultado()}  Custo: {calcular_custo_caminho(resultado())}
@@ -406,6 +409,10 @@ def exibir_melhores_resultados(melhores: list[tuple[int, Rotas, float]]) -> None
     Melhores Resultados
     {"":{len(geracao)}}\t{get_cabecalho_melhores(tam)}
     {linhas}
+
+    Total 
+        Crossovers: {contador.total_cros}
+        Mutações: {contador.total_mut}
     """)
 
 
@@ -428,12 +435,13 @@ if __name__ == '__main__':
     try:
         print('-'*40, 'INICIO DO PROGRAMA', '-'*40)
 
-        qtd_rotas: int = 12
+        qtd_rotas: int = 1000
         geracoes: int = 50
         geracao: int = 0
-        taxa_mutacao: float = 0.01
+        taxa_mutacao: float = 0.001
         taxa_crossover: float = 0.7
         melhores_resultados: list[tuple[int, Rotas]] = []
+        contador: Contador = Contador()
 
         exibir_problema(taxa_mutacao, taxa_crossover, qtd_rotas, geracoes)
 
@@ -443,16 +451,18 @@ if __name__ == '__main__':
         while geracao < geracoes:
             geracao += 1
 
-            rotas = criar_prox_geracao(rotas, taxa_mutacao, taxa_crossover)
+            rotas = criar_prox_geracao(rotas, taxa_mutacao, taxa_crossover, contador)
             avaliar_rotas(rotas)
 
             media = sum([r.custo for r in rotas]) / len(rotas)
-            melhores_resultados.append((geracao, rotas[0].copy(), media))
+            melhores_resultados.append((geracao, rotas[0].copy(), media, contador.crossovers, contador.mutacoes))
+            
             if geracoes < 10:
                 print(f'Geração {geracao}')
                 exibir_geracao(rotas)
             else:
                 exibir_geracao_numero('\n\nGeração', geracao, geracoes)
+            contador.reset()
 
         exibir_melhores_resultados(melhores_resultados)
 
