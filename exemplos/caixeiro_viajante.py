@@ -17,7 +17,7 @@ CUSTO = Custo.MINIMIZAR
 VIA = Via.DUPLA
 
 # Máximo 52, exceto 4 que não foi implementado ainda
-TOTAL_CIDADES = 10
+TOTAL_CIDADES = 15
 CIDADES = (string.ascii_uppercase+string.ascii_lowercase)[:TOTAL_CIDADES]
 ORIGEM = CIDADES[0]
 
@@ -326,30 +326,31 @@ def hilight_resultado() -> str:
 
 def get_cabecalho(tamanho: int) -> str:
     if CUSTO == Custo.MAXIMIZAR:
-        return f'\t{"Rotas":^{tamanho}}  {"Custo":^{tamanho}}  {"Proporção Custo":^{tamanho}}'
-    return f'\t{"Rotas":^{tamanho}}  {"Custo":^{tamanho}}  {"Proporção Custo":^{tamanho}}  {"Nota":^{tamanho}}  {"Proporção Nota":^{tamanho}}'
+        return f'\t{{:^{{}}}}  {"Custo":^{tamanho}}  {"Proporção Custo":^{tamanho}}'
+    return f'\t{{:^{{}}}}  {"Custo":^{tamanho}}  {"Proporção Custo":^{tamanho}}  {"Nota":^{tamanho}}  {"Proporção Nota":^{tamanho}}'
 
 
 def get_formato_corpo(tamanho: int) -> str:
     if CUSTO == Custo.MAXIMIZAR:
-        return f'\t{{:^{tamanho}}}  {{:^{tamanho}.2f}}  {{:^{tamanho}.2%}}'
-    return f'\t{{:^{tamanho}}} {{:^{tamanho}.2f}}  {{:^{tamanho}.2%}}  {{:^{tamanho}.2f}}  {{:^{tamanho}.2%}}'
+        return f'\t{{:^{{}}}}  {{:^{tamanho}.2f}}  {{:^{tamanho}.2%}}'
+    return f'\t{{:^{{}}}} {{:^{tamanho}.2f}}  {{:^{tamanho}.2%}}  {{:^{tamanho}.2f}}  {{:^{tamanho}.2%}}'
 
 
 def get_cabecalho_melhores(tamanho: int):
-    return f'\t{"Rotas":^{tamanho}}  {"Custo":^{tamanho}}  {"Média Custo":^{tamanho}}  {"Crossovers":^{tamanho}}  {"Mutações":^{tamanho}}'
+    return f'\t{{:^{{}}}}  {"Custo":^{tamanho}}  {"Média Custo":^{tamanho}}  {"Crossovers":^{tamanho}}  {"Mutações":^{tamanho}}'
 
 
 def get_formato_corpo_melhores(tamanho: int):
-    return f'\t{{:^{tamanho}}} {{:^{tamanho}.2f}}  {{:^{tamanho}.2f}}  {{:^{tamanho}}}  {{:^{tamanho}}}'
+    return f'\t{{:^{{}}}} {{:^{tamanho}.2f}}  {{:^{tamanho}.2f}}  {{:^{tamanho}}}  {{:^{tamanho}}}'
 
 
 def exibir_geracao(geracao: list[Rotas]) -> None:
     tam = 16
+    tam_rota = len(geracao[0].rota) + 2
     forma = get_formato_corpo(tam)
-    print(get_cabecalho(tam))
+    print(get_cabecalho(tam).format("Rotas", tam_rota))
     for r in geracao:
-        print(forma.format(r.rota, r.custo, r.custo_prop, r.nota, r.nota_prop))
+        print(forma.format(r.rota, tam_rota, r.custo, r.custo_prop, r.nota, r.nota_prop))
 
 
 def exibir_geracao_numero(tag: str, atual:int, total: int):
@@ -397,17 +398,20 @@ def exibir_problema(taxa_mutacao:float, taxa_crossover:float, total_rotas:int, g
 
 def exibir_melhores_resultados(melhores: list[tuple[int, Rotas, float, int, int]]) -> None:
     tam = 13
+    tam_rota = len(CIDADES) + 3
     forma = get_formato_corpo_melhores(tam)
     linhas = ''
     geracao = '\tGeração'
+    resposta = resultado()
     for i in melhores:
-        linhas += f'{geracao:>{len(geracao)}} {i[0]}  {forma.format(i[1].rota, i[1].custo, i[2], i[3], i[4])}\n'
+        rota = i[1].rota if i[1].rota != resposta else f'\033[92m{i[1].rota}\033[00m'
+        linhas += f'{geracao:>{len(geracao)}} {i[0]}  {forma.format(rota, tam_rota, i[1].custo, i[2], i[3], i[4])}\n'
 
     print(f"""
     Solução: {hilight_resultado()}  Custo: {calcular_custo_caminho(resultado())}
 
     Melhores Resultados
-    {"":{len(geracao)}}\t{get_cabecalho_melhores(tam)}
+    {"":{len(geracao)}}\t{get_cabecalho_melhores(tam).format("Rotas", tam_rota)}
     {linhas}
 
     Total 
@@ -435,12 +439,12 @@ if __name__ == '__main__':
     try:
         print('-'*40, 'INICIO DO PROGRAMA', '-'*40)
 
-        qtd_rotas: int = 1000
+        qtd_rotas: int = 2500
         geracoes: int = 50
         geracao: int = 0
         taxa_mutacao: float = 0.001
         taxa_crossover: float = 0.7
-        melhores_resultados: list[tuple[int, Rotas]] = []
+        melhores_resultados: list[tuple[int, Rotas, float, int, int]] = []
         contador: Contador = Contador()
 
         exibir_problema(taxa_mutacao, taxa_crossover, qtd_rotas, geracoes)
@@ -467,6 +471,6 @@ if __name__ == '__main__':
         exibir_melhores_resultados(melhores_resultados)
 
     except Exception as e:
-        print(f'Erro: {e}')
+        print(f'Erro: {e} {e.with_traceback()}')
     finally:
         print('-'*40, 'FIM PROGRAMA', '-'*40)
