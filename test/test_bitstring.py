@@ -164,4 +164,72 @@ def test_bitstring_setitem_fora_do_intervalo_gera_erro():
     
     assert excinfo_maior.type is IndexError, f'{excinfo_maior.type} diferente de IndexError'
     assert excinfo_menor.type is IndexError, f'{excinfo_menor.type} diferente de IndexError'
+
+
+@pytest.mark.parametrize(
+        "valor, index, valor_bit, resultado",
+        [
+            (0b0001, 1, 0, 0b0001),
+            (0b0011, 1, 1, 0b0011)
+        ]
+)
+def test_bitstring_setitem_com_valor_igual_nao_altera_resultado(valor, index, valor_bit, resultado):
+    bs = BitString(bits=4, valor=valor)
+
+    bs[index] = valor_bit
+
+    assert bs.valor == resultado, f'valor retornado ({bs.valor}) para indice {index} diferente do esperado ({resultado})'
+
+
+@pytest.mark.parametrize(
+        "valor_1, valor_2, resultado",
+        [
+            (0b0000, 0b0001, 0b0001),
+            (0b1000, 0b0000, 0b1000),
+            (0b1100, 0b0000, 0b1100),
+            (0b0100, 0b0011, 0b0111)
+        ]
+)
+def test_bitstring_or_assignment_deve_funcionar(valor_1, valor_2, resultado, quantidadeBits):
+    bs1 = BitString(bits=quantidadeBits, valor=valor_1)
+    bs2 = BitString(bits=quantidadeBits, valor=valor_2)
+
+    bs1 |= bs2
+
+    assert bs1.valor == resultado, f'valor retornado ({bs1.valor}) diferente do esperado ({resultado})'
+
+
+@pytest.mark.parametrize(
+        "valor_1, valor_2, resultado",
+        [
+            (0b0000, 0b0001, 0b0000),
+            (0b1000, 0b0000, 0b0000),
+            (0b1100, 0b1100, 0b1100)
+        ]
+)
+def test_bitstring_and_assignment_deve_funcionar(valor_1, valor_2, resultado, quantidadeBits):
+    bs1 = BitString(bits=quantidadeBits, valor=valor_1)
+    bs2 = BitString(bits=quantidadeBits, valor=valor_2)
+
+    bs1 &= bs2
+
+    assert bs1.valor == resultado, f'valor retornado ({bs1.valor}) diferente do esperado ({resultado})'
+
+
+@pytest.mark.parametrize(
+        "valor_1, valor_2, resultado",
+        [
+            (0b0111, 0b0001, 0b0110),
+            (0b0000, 0b0000, 0b0000),
+            (0b1111, 0b0000, 0b1111)
+        ]
+)
+def test_bitstring_xor_assignment_deve_funcionar(valor_1, valor_2, resultado, quantidadeBits):
+    bs1 = BitString(bits=quantidadeBits, valor=valor_1)
+    bs2 = BitString(bits=quantidadeBits, valor=valor_2)
+
+    bs1 ^= bs2
+
+    assert bs1.valor == resultado, f'valor retornado ({bs1.valor}) diferente do esperado ({resultado})'
+
     
