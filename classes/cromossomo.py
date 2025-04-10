@@ -4,11 +4,10 @@ from .bitstring import BitString
 class Cromossomo(BitString):
     
 
-    def __init__(self, tamanho=None, bitstring=None, aptidao=0.0, aptidao_acum=0.0, taxa_mutacao=0.0):
-        super().__init__(bits=tamanho, valor=bitstring)
+    def __init__(self, tamanho=None, valor=None, aptidao=0.0, taxa_mutacao=0.0):
+        super().__init__(bits=tamanho, valor=valor)
         self.taxa_mutacao: float = taxa_mutacao
         self.aptidao: float = aptidao
-        self.aptidao_acum: float = aptidao_acum
 
 
     def __xor__(self, other):
@@ -57,4 +56,3 @@ class Cromossomo(BitString):
                 self[i] = 1 if self[i] == 0 else 0
                 
         self.aptidao = 0.0
-    
