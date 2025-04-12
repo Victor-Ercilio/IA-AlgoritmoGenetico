@@ -1,6 +1,6 @@
 from random import randrange, random
 from enum import Enum
-import string, itertools, fractions
+import string, itertools, fractions, os, sys, time
 
 
 class Via(Enum):
@@ -17,7 +17,7 @@ CUSTO = Custo.MINIMIZAR
 VIA = Via.DUPLA
 
 # Máximo 52, exceto 4 que não foi implementado ainda
-TOTAL_CIDADES = 15
+TOTAL_CIDADES = 30
 CIDADES = (string.ascii_uppercase+string.ascii_lowercase)[:TOTAL_CIDADES]
 ORIGEM = CIDADES[0]
 
@@ -344,13 +344,13 @@ def get_formato_corpo_melhores(tamanho: int):
     return f'\t{{:^{{}}}} {{:^{tamanho}.2f}}  {{:^{tamanho}.2f}}  {{:^{tamanho}}}  {{:^{tamanho}}}'
 
 
-def exibir_geracao(geracao: list[Rotas]) -> None:
+def exibir_geracao(geracao: list[Rotas], file=None) -> None:
     tam = 16
     tam_rota = len(geracao[0].rota) + 2
     forma = get_formato_corpo(tam)
-    print(get_cabecalho(tam).format("Rotas", tam_rota))
+    print(get_cabecalho(tam).format("Rotas", tam_rota), file=file)
     for r in geracao:
-        print(forma.format(r.rota, tam_rota, r.custo, r.custo_prop, r.nota, r.nota_prop))
+        print(forma.format(r.rota, tam_rota, r.custo, r.custo_prop, r.nota, r.nota_prop), file=file)
 
 
 def exibir_geracao_numero(tag: str, atual:int, total: int):
@@ -380,7 +380,7 @@ def exibir_geracao_numero(tag: str, atual:int, total: int):
         print(f'{limpa_num}{(atual):0>{tam}}', end='', flush=True)
 
 
-def exibir_problema(taxa_mutacao:float, taxa_crossover:float, total_rotas:int, geracoes:int) -> None:
+def exibir_problema(taxa_mutacao:float, taxa_crossover:float, total_rotas:int, geracoes:int, file=None) -> None:
     print(f"""
     Parâmetros
     Tipo problema: {CUSTO}
@@ -393,65 +393,88 @@ def exibir_problema(taxa_mutacao:float, taxa_crossover:float, total_rotas:int, g
     Taxa crossover: {taxa_crossover:.2%}
     Quantidade de rotas por geração: {total_rotas}
 
-    """)
+    """, file=file)
 
 
-def exibir_melhores_resultados(melhores: list[tuple[int, Rotas, float, int, int]]) -> None:
+def exibir_melhores_resultados(melhores: list[tuple[int, Rotas, float, int, int]], file=None) -> None:
     tam = 13
     tam_rota = len(CIDADES) + 3
     forma = get_formato_corpo_melhores(tam)
     linhas = ''
-    geracao = '\tGeração'
+    label = '\tGeração'
     resposta = resultado()
-    for i in melhores:
-        rota = i[1].rota if i[1].rota != resposta else f'\033[92m{i[1].rota}\033[00m'
-        linhas += f'{geracao:>{len(geracao)}} {i[0]}  {forma.format(rota, tam_rota, i[1].custo, i[2], i[3], i[4])}\n'
+    len_geracoes = len(str(len(melhores)))
+
+
+    if file:
+        for i in melhores:
+            geracao, rota, media, qtd_cross, qtd_mut = i
+            linhas += f'{label} {geracao:>{len_geracoes+1}}  {forma.format(rota.rota, tam_rota, rota.custo, media, qtd_cross, qtd_mut)}\n'
+    else:
+        for i in melhores:
+            geracao, rota, media, qtd_cross, qtd_mut = i
+            nome_rota = str(rota) if str(rota) != resposta else f'\033[92m{rota}\033[00m'
+            linhas += f'{label} {geracao}  {forma.format(nome_rota, tam_rota, rota.custo, media, qtd_cross, qtd_mut)}\n'
 
     print(f"""
-    Solução: {hilight_resultado()}  Custo: {calcular_custo_caminho(resultado())}
+    Solução: {hilight_resultado() if not file else resultado()}  Custo: {calcular_custo_caminho(resultado())}
 
     Melhores Resultados
-    {"":{len(geracao)}}\t{get_cabecalho_melhores(tam).format("Rotas", tam_rota)}
+    {"":{len(label)}}\t{get_cabecalho_melhores(tam).format("Rotas", tam_rota)}
+
     {linhas}
 
     Total 
         Crossovers: {contador.total_cros}
         Mutações: {contador.total_mut}
-    """)
+
+    """, file=file)
 
 
-def exibir_populacao_incial(rotas: list[Rotas]) -> None:
-    print('\nPopulação Inicial')
-    exibir_geracao(rotas)
+def exibir_populacao_incial(rotas: list[Rotas], file=None) -> None:
+    print('População Inicial', file=file)
+    exibir_geracao(rotas, file=file)
 
 
-def exibir_custos_todas_rotas_possiveis(rotas: list[Rotas]) -> None:
+def exibir_custos_todas_rotas_possiveis(rotas: list[Rotas], file=None) -> None:
     # Todas as rotas possíveis
     rotas = [ORIGEM + ''.join(r) + ORIGEM for r in itertools.permutations(CIDADES.replace(ORIGEM, ''))]
     rotas_custos = [ (r, calcular_custo_caminho(r)) for r in rotas ]
     rotas_custos.sort(key=lambda r: r[1])
 
     for i in rotas_custos:
-        print(f'\t{i[0]}\t{i[1]}')
+        print(f'\t{i[0]}\t{i[1]}', file=file)
 
 
 if __name__ == '__main__':
     try:
-        print('-'*40, 'INICIO DO PROGRAMA', '-'*40)
+        terminal_size = os.get_terminal_size(sys.stdout.fileno()).columns
+        print(f'{{:-^{terminal_size}}}'.format(' INICIO DO PROGRAMA '))
 
-        qtd_rotas: int = 2500
-        geracoes: int = 50
+        qtd_rotas: int = 1500
+        geracoes: int = 800
         geracao: int = 0
         taxa_mutacao: float = 0.001
         taxa_crossover: float = 0.7
         melhores_resultados: list[tuple[int, Rotas, float, int, int]] = []
         contador: Contador = Contador()
+        file_name = f'AG-Resultados-{CUSTO.name}_{VIA.name}_C{TOTAL_CIDADES}_R{qtd_rotas}_G{geracoes}.txt'
+        
+        try:
+            file = open(file_name, 'x',encoding="utf-8")
+        except FileExistsError:
+            print(f'O arquivo {file_name}  já existe.')
+            file = None
 
-        exibir_problema(taxa_mutacao, taxa_crossover, qtd_rotas, geracoes)
+        if file:
+            print(f'\nSalvando em {file_name}')
+
+        exibir_problema(taxa_mutacao, taxa_crossover, qtd_rotas, geracoes, file)
 
         rotas: list[Rotas] = [ Rotas(gerar_caminho()) for _ in range(qtd_rotas) ]
         avaliar_rotas(rotas)
-        exibir_populacao_incial(rotas)
+        if qtd_rotas < 100:
+            exibir_populacao_incial(rotas, file=file)
         while geracao < geracoes:
             geracao += 1
 
@@ -462,15 +485,18 @@ if __name__ == '__main__':
             melhores_resultados.append((geracao, rotas[0].copy(), media, contador.crossovers, contador.mutacoes))
             
             if geracoes < 10:
-                print(f'Geração {geracao}')
-                exibir_geracao(rotas)
+                print(f'Geração {geracao}', file=file)
+                exibir_geracao(rotas, file=file)
             else:
                 exibir_geracao_numero('\n\nGeração', geracao, geracoes)
             contador.reset()
 
-        exibir_melhores_resultados(melhores_resultados)
+        exibir_melhores_resultados(melhores_resultados, file=file)
 
     except Exception as e:
-        print(f'Erro: {e} {e.with_traceback()}')
+        print(f'Erro: {e}')
+        print(e)
     finally:
-        print('-'*40, 'FIM PROGRAMA', '-'*40)
+        if file:
+            file.close()
+        print(f'{{:-^{terminal_size}}}'.format(' FIM PROGRAMA '))
