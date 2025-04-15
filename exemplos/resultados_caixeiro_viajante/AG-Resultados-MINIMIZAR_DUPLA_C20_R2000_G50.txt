@@ -1,0 +1,76 @@
+
+    Parâmetros
+    Tipo problema: Custo.MINIMIZAR
+    Quantidade de cidades: 20
+    Cidades: ABCDEFGHIJKLMNOPQRST
+    Via: Via.DUPLA
+
+    Gerações: 50
+    Taxa mutação: 0.10%
+    Taxa crossover: 70.00%
+    Quantidade de rotas por geração: 2000
+
+    
+
+    Solução: ABCDEFGHIJKLMNOPQRSTA  Custo: 22
+
+    Melhores Resultados
+            		         Rotas               Custo       Média Custo    Crossovers      Mutações   
+
+    	Geração   1  	 ABCRTOPGKLSMNFQEDHIJA      45.00          55.73           714            46      
+	Geração   2  	 ABCRTOPGKLSMNFQEDHIJA      45.00          55.05           709            27      
+	Geração   3  	 ABCRTOPGKLSMNFQEDHIJA      45.00          54.43           706            45      
+	Geração   4  	 ABCRTOPGKLSMNFQEDHIJA      45.00          53.89           686            37      
+	Geração   5  	 ABRQPONEFDCSTILMJKGHA      43.00          53.27           700            45      
+	Geração   6  	 ABRQPONEFDCSTILMJKGHA      43.00          52.99           744            39      
+	Geração   7  	 ABKJISTHCDEFGRNLMOPQA      40.00          52.61           707            40      
+	Geração   8  	 ABKJISTHCDEFGRNLMOPQA      40.00          52.23           692            42      
+	Geração   9  	 ABKJISTHCDEFGRNLMOPQA      40.00          51.75           705            30      
+	Geração  10  	 ABCJITKGHDEFQRSOPLMNA      39.00          51.47           689            40      
+	Geração  11  	 ABCJITKGHDEFQRSOPLMNA      39.00          51.13           700            27      
+	Geração  12  	 ABIJKSTHCDEFGRNLMOPQA      38.00          50.61           685            33      
+	Geração  13  	 ABIJKSTHCDEFGRNLMOPQA      38.00          50.29           695            44      
+	Geração  14  	 ABHIJKSTCDEFGRQLMNOPA      33.00          49.85           698            38      
+	Geração  15  	 ABHIJKSTCDEFGRQLMNOPA      33.00          49.37           732            35      
+	Geração  16  	 ABHIJKSTCDEFGRQLMNOPA      33.00          48.92           696            46      
+	Geração  17  	 ABHIJKSTCDEFGRQLMNOPA      33.00          48.53           700            41      
+	Geração  18  	 ABHIJKSTCDEFGRQLMNOPA      33.00          48.29           713            34      
+	Geração  19  	 ABHIJKSTCDEFGRQLMNOPA      33.00          47.76           720            49      
+	Geração  20  	 ABHIJKSTCDEFGRQLMNOPA      33.00          47.30           680            47      
+	Geração  21  	 ABHIJKSTCDEFGRQLMNOPA      33.00          46.48           687            24      
+	Geração  22  	 ABHIJKSTCDEFGRQLMNOPA      33.00          45.94           699            38      
+	Geração  23  	 ABHIJKSTCDEFGRQLMNOPA      33.00          45.33           702            31      
+	Geração  24  	 ABHIJKSTCDEFGRQLMNOPA      33.00          44.83           705            48      
+	Geração  25  	 ABHIJKSTCDEFGRQLMNOPA      33.00          44.32           717            42      
+	Geração  26  	 ABHIJKSTCDEFGRQLMNOPA      33.00          43.62           680            39      
+	Geração  27  	 ABHIJKSTCDEFGRQLMNOPA      33.00          43.19           709            32      
+	Geração  28  	 ABHIJKSTCDEFGQRLMNOPA      32.00          42.94           712            34      
+	Geração  29  	 ABHIJKSTCDEFGQRLMNOPA      32.00          42.23           699            38      
+	Geração  30  	 ABHIJKSTCDEFGQRLMNOPA      32.00          41.82           708            27      
+	Geração  31  	 ABHIJKSTCDEFGQRLMNOPA      32.00          41.33           696            33      
+	Geração  32  	 ABHIJKSTCDEFGQRLMNOPA      32.00          40.98           699            44      
+	Geração  33  	 ABHIJKSTCDEFGQRLMNOPA      32.00          40.44           700            38      
+	Geração  34  	 ABHIJKSTCDEFGQRLMNOPA      32.00          39.85           714            38      
+	Geração  35  	 ABHIJKSTCDEFGQRLMNOPA      32.00          39.69           698            44      
+	Geração  36  	 ABHIJKSTCDEFGQRLMNOPA      32.00          39.30           700            38      
+	Geração  37  	 AGHIJKLBCDEFQRSTMNOPA      30.00          38.72           698            42      
+	Geração  38  	 AGHIJKLBCDEFQRSTMNOPA      30.00          38.19           689            39      
+	Geração  39  	 AGHIJKLBCDEFQRSTMNOPA      30.00          37.68           679            44      
+	Geração  40  	 AGHIJKLBCDEFQRSTMNOPA      30.00          37.34           689            39      
+	Geração  41  	 AGHIJKLBCDEFQRSTMNOPA      30.00          36.95           689            42      
+	Geração  42  	 AGHIJKLBCDEFQRSTMNOPA      30.00          36.41           696            20      
+	Geração  43  	 AGHIJKLBCDEFQRSTMNOPA      30.00          36.13           707            24      
+	Geração  44  	 AGHIJKLBCDEFQRSTMNOPA      30.00          35.74           712            27      
+	Geração  45  	 AGHIJKLBCDEFQRSTMNOPA      30.00          35.48           682            35      
+	Geração  46  	 AGHIJKLBCDEFQRSTMNOPA      30.00          35.25           710            39      
+	Geração  47  	 AGHIJKLBCDEFQRSTMNOPA      30.00          35.10           701            44      
+	Geração  48  	 AGHIJKLBCDEFQRSTMNOPA      30.00          34.85           685            31      
+	Geração  49  	 AGHIJKLBCDEFQRSTMNOPA      30.00          34.61           691            35      
+	Geração  50  	 AGHIJKLBCDEFQRSTMNOPA      30.00          34.43           692            49      
+
+
+    Total 
+        Crossovers: 35016
+        Mutações: 1883
+
+    

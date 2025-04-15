@@ -1,0 +1,126 @@
+
+    Parâmetros
+    Tipo problema: Custo.MINIMIZAR
+    Quantidade de cidades: 15
+    Cidades: ABCDEFGHIJKLMNO
+    Via: Via.DUPLA
+
+    Gerações: 100
+    Taxa mutação: 0.10%
+    Taxa crossover: 70.00%
+    Quantidade de rotas por geração: 5000
+
+    
+
+    Solução: BCDEFGHIJKLMNOAB  Custo: 17
+
+    Melhores Resultados
+            		      Rotas             Custo       Média Custo    Crossovers      Mutações   
+
+    	Geração    1  	 BCOGIJKDEFMLHNAB      32.00          40.74          1722            75      
+	Geração    2  	 BCDKNLOMEFGHIJAB      29.00          39.95          1692            71      
+	Geração    3  	 BCDKNLOMEFGHIJAB      29.00          39.42          1787            78      
+	Geração    4  	 BIOCDJKLMNEFGHAB      27.00          38.87          1770            72      
+	Geração    5  	 BDEFGHIJKLCOMNAB      25.00          38.33          1729            71      
+	Geração    6  	 BDEFGHIJKLCOMNAB      25.00          37.85          1738            67      
+	Geração    7  	 BDEFGHIJKLCOMNAB      25.00          37.50          1728            76      
+	Geração    8  	 BDEFGHIJKLCOMNAB      25.00          37.17          1724            71      
+	Geração    9  	 BDEFGHIJKLCOMNAB      25.00          36.87          1793            82      
+	Geração   10  	 BDEFGHIJKLCOMNAB      25.00          36.42          1755            67      
+	Geração   11  	 BDEFGHIJKLCMNOAB      23.00          36.16          1734            60      
+	Geração   12  	 BDEFGHIJKLCMNOAB      23.00          35.86          1759            66      
+	Geração   13  	 BDEFGHIJKLCMNOAB      23.00          35.41          1792            81      
+	Geração   14  	 BCDEFGHIJKLOMNAB      21.00          35.11          1767            59      
+	Geração   15  	 BCDEFGHIJKLOMNAB      21.00          34.86          1748            46      
+	Geração   16  	 BCDEFGHIJKLOMNAB      21.00          34.59          1728            76      
+	Geração   17  	 BCDEFGHIJKLOMNAB      21.00          34.35          1750            65      
+	Geração   18  	 BCDEFGHIJKLOMNAB      21.00          33.97          1733            65      
+	Geração   19  	 BCDEFGHIJKLOMNAB      21.00          33.79          1726            57      
+	Geração   20  	 BCDEFGHIJKLOMNAB      21.00          33.47          1795            65      
+	Geração   21  	 BCDEFGHIJKLOMNAB      21.00          33.31          1754            76      
+	Geração   22  	 BCDEFGHIJKLOMNAB      21.00          32.99          1736            82      
+	Geração   23  	 BCDEFGHIJKLOMNAB      21.00          32.60          1736            73      
+	Geração   24  	 BCDEFGHIJKLOMNAB      21.00          32.30          1749            88      
+	Geração   25  	 BCDEFGHIJKLOMNAB      21.00          32.00          1766            67      
+	Geração   26  	 BCDEFGHIJKLOMNAB      21.00          31.65          1757            74      
+	Geração   27  	 BCDEFGHIJKLOMNAB      21.00          31.30          1747            60      
+	Geração   28  	 BCDEFGHIJKLMNOAB      17.00          31.13          1743            60      
+	Geração   29  	 BCDEFGHIJKLMNOAB      17.00          30.74          1734            71      
+	Geração   30  	 BCDEFGHIJKLMNOAB      17.00          30.50          1721            67      
+	Geração   31  	 BCDEFGHIJKLMNOAB      17.00          30.27          1747            79      
+	Geração   32  	 BCDEFGHIJKLMNOAB      17.00          29.87          1730            63      
+	Geração   33  	 BCDEFGHIJKLMNOAB      17.00          29.30          1734            76      
+	Geração   34  	 BCDEFGHIJKLMNOAB      17.00          28.91          1732            68      
+	Geração   35  	 BCDEFGHIJKLMNOAB      17.00          28.20          1740            78      
+	Geração   36  	 BCDEFGHIJKLMNOAB      17.00          27.91          1757            75      
+	Geração   37  	 BCDEFGHIJKLMNOAB      17.00          27.50          1733            62      
+	Geração   38  	 BCDEFGHIJKLMNOAB      17.00          27.16          1766            73      
+	Geração   39  	 BCDEFGHIJKLMNOAB      17.00          26.81          1757            85      
+	Geração   40  	 BCDEFGHIJKLMNOAB      17.00          26.43          1735            62      
+	Geração   41  	 BCDEFGHIJKLMNOAB      17.00          26.15          1751            81      
+	Geração   42  	 BCDEFGHIJKLMNOAB      17.00          25.78          1776            65      
+	Geração   43  	 BCDEFGHIJKLMNOAB      17.00          25.34          1760            69      
+	Geração   44  	 BCDEFGHIJKLMNOAB      17.00          24.99          1724            50      
+	Geração   45  	 BCDEFGHIJKLMNOAB      17.00          24.71          1770            72      
+	Geração   46  	 BCDEFGHIJKLMNOAB      17.00          24.51          1745            87      
+	Geração   47  	 BCDEFGHIJKLMNOAB      17.00          24.20          1782            63      
+	Geração   48  	 BCDEFGHIJKLMNOAB      17.00          24.08          1743            76      
+	Geração   49  	 BCDEFGHIJKLMNOAB      17.00          23.94          1740            61      
+	Geração   50  	 BCDEFGHIJKLMNOAB      17.00          23.53          1712            66      
+	Geração   51  	 BCDEFGHIJKLMNOAB      17.00          23.30          1772            69      
+	Geração   52  	 BCDEFGHIJKLMNOAB      17.00          23.19          1750            76      
+	Geração   53  	 BCDEFGHIJKLMNOAB      17.00          22.90          1741            74      
+	Geração   54  	 BCDEFGHIJKLMNOAB      17.00          22.53          1759            82      
+	Geração   55  	 BCDEFGHIJKLMNOAB      17.00          22.07          1736            65      
+	Geração   56  	 BCDEFGHIJKLMNOAB      17.00          21.68          1741            59      
+	Geração   57  	 BCDEFGHIJKLMNOAB      17.00          21.28          1716            62      
+	Geração   58  	 BCDEFGHIJKLMNOAB      17.00          20.95          1749            61      
+	Geração   59  	 BCDEFGHIJKLMNOAB      17.00          20.71          1772            79      
+	Geração   60  	 BCDEFGHIJKLMNOAB      17.00          20.21          1753            58      
+	Geração   61  	 BCDEFGHIJKLMNOAB      17.00          19.84          1723            65      
+	Geração   62  	 BCDEFGHIJKLMNOAB      17.00          19.46          1751            77      
+	Geração   63  	 BCDEFGHIJKLMNOAB      17.00          19.00          1708            66      
+	Geração   64  	 BCDEFGHIJKLMNOAB      17.00          18.63          1779            79      
+	Geração   65  	 BCDEFGHIJKLMNOAB      17.00          18.24          1741            60      
+	Geração   66  	 BCDEFGHIJKLMNOAB      17.00          17.86          1755            75      
+	Geração   67  	 BCDEFGHIJKLMNOAB      17.00          17.66          1776            73      
+	Geração   68  	 BCDEFGHIJKLMNOAB      17.00          17.49          1759            69      
+	Geração   69  	 BCDEFGHIJKLMNOAB      17.00          17.42          1736            79      
+	Geração   70  	 BCDEFGHIJKLMNOAB      17.00          17.40          1757            79      
+	Geração   71  	 BCDEFGHIJKLMNOAB      17.00          17.34          1744            76      
+	Geração   72  	 BCDEFGHIJKLMNOAB      17.00          17.29          1785            64      
+	Geração   73  	 BCDEFGHIJKLMNOAB      17.00          17.29          1723            73      
+	Geração   74  	 BCDEFGHIJKLMNOAB      17.00          17.27          1756            75      
+	Geração   75  	 BCDEFGHIJKLMNOAB      17.00          17.26          1779            72      
+	Geração   76  	 BCDEFGHIJKLMNOAB      17.00          17.17          1741            62      
+	Geração   77  	 BCDEFGHIJKLMNOAB      17.00          17.22          1766            75      
+	Geração   78  	 BCDEFGHIJKLMNOAB      17.00          17.20          1695            58      
+	Geração   79  	 BCDEFGHIJKLMNOAB      17.00          17.19          1747            74      
+	Geração   80  	 BCDEFGHIJKLMNOAB      17.00          17.16          1735            74      
+	Geração   81  	 BCDEFGHIJKLMNOAB      17.00          17.16          1755            73      
+	Geração   82  	 BCDEFGHIJKLMNOAB      17.00          17.20          1771            76      
+	Geração   83  	 BCDEFGHIJKLMNOAB      17.00          17.25          1776            74      
+	Geração   84  	 BCDEFGHIJKLMNOAB      17.00          17.24          1753            81      
+	Geração   85  	 BCDEFGHIJKLMNOAB      17.00          17.12          1732            58      
+	Geração   86  	 BCDEFGHIJKLMNOAB      17.00          17.19          1745            86      
+	Geração   87  	 BCDEFGHIJKLMNOAB      17.00          17.12          1750            57      
+	Geração   88  	 BCDEFGHIJKLMNOAB      17.00          17.17          1738            78      
+	Geração   89  	 BCDEFGHIJKLMNOAB      17.00          17.19          1774            86      
+	Geração   90  	 BCDEFGHIJKLMNOAB      17.00          17.18          1733            66      
+	Geração   91  	 BCDEFGHIJKLMNOAB      17.00          17.20          1736            56      
+	Geração   92  	 BCDEFGHIJKLMNOAB      17.00          17.10          1783            48      
+	Geração   93  	 BCDEFGHIJKLMNOAB      17.00          17.16          1747            83      
+	Geração   94  	 BCDEFGHIJKLMNOAB      17.00          17.20          1742            71      
+	Geração   95  	 BCDEFGHIJKLMNOAB      17.00          17.15          1727            74      
+	Geração   96  	 BCDEFGHIJKLMNOAB      17.00          17.18          1776            70      
+	Geração   97  	 BCDEFGHIJKLMNOAB      17.00          17.21          1718            76      
+	Geração   98  	 BCDEFGHIJKLMNOAB      17.00          17.21          1727            67      
+	Geração   99  	 BCDEFGHIJKLMNOAB      17.00          17.27          1793            79      
+	Geração  100  	 BCDEFGHIJKLMNOAB      17.00          17.23          1787            75      
+
+
+    Total 
+        Crossovers: 174855
+        Mutações: 7043
+
+    

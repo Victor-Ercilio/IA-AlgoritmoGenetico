@@ -1,0 +1,72 @@
+
+    Parâmetros
+    Tipo problema: Custo.MINIMIZAR
+    Quantidade de cidades: 5
+    Cidades: ABCDE
+    Via: Via.DUPLA
+
+    Gerações: 5
+    Taxa mutação: 0.10%
+    Taxa crossover: 70.00%
+    Quantidade de rotas por geração: 5
+
+    
+
+População Inicial
+	 Rotas         Custo        Proporção Custo         Nota         Proporção Nota 
+	 ADECBA       17.00             13.93%            10.00             37.21%     
+	 ADCBEA       18.00             14.75%             9.38             34.88%     
+	 ABCEDA       23.00             18.85%             6.25             23.26%     
+	 ACDBEA       31.00             25.41%             1.25             4.65%      
+	 ABECDA       33.00             27.05%             0.00             0.00%      
+Geração 1
+	 Rotas         Custo        Proporção Custo         Nota         Proporção Nota 
+	 ADECBA       17.00             17.53%            16.67             38.46%     
+	 ADECBA       17.00             17.53%            16.67             38.46%     
+	 ADECBA       17.00             17.53%            10.00             23.08%     
+	 ABCEDA       23.00             23.71%             0.00             0.00%      
+	 ABCEDA       23.00             23.71%             0.00             0.00%      
+Geração 2
+	 Rotas         Custo        Proporção Custo         Nota         Proporção Nota 
+	 ADECBA       17.00             20.00%            10.00             20.00%     
+	 ADECBA       17.00             20.00%            10.00             20.00%     
+	 ADECBA       17.00             20.00%            10.00             20.00%     
+	 ADECBA       17.00             20.00%            10.00             20.00%     
+	 ADECBA       17.00             20.00%            10.00             20.00%     
+Geração 3
+	 Rotas         Custo        Proporção Custo         Nota         Proporção Nota 
+	 ADECBA       17.00             20.00%            10.00             20.00%     
+	 ADECBA       17.00             20.00%            10.00             20.00%     
+	 ADECBA       17.00             20.00%            10.00             20.00%     
+	 ADECBA       17.00             20.00%            10.00             20.00%     
+	 ADECBA       17.00             20.00%            10.00             20.00%     
+Geração 4
+	 Rotas         Custo        Proporção Custo         Nota         Proporção Nota 
+	 ADECBA       17.00             20.00%            10.00             20.00%     
+	 ADECBA       17.00             20.00%            10.00             20.00%     
+	 ADECBA       17.00             20.00%            10.00             20.00%     
+	 ADECBA       17.00             20.00%            10.00             20.00%     
+	 ADECBA       17.00             20.00%            10.00             20.00%     
+Geração 5
+	 Rotas         Custo        Proporção Custo         Nota         Proporção Nota 
+	 ADECBA       17.00             20.00%            10.00             20.00%     
+	 ADECBA       17.00             20.00%            10.00             20.00%     
+	 ADECBA       17.00             20.00%            10.00             20.00%     
+	 ADECBA       17.00             20.00%            10.00             20.00%     
+	 ADECBA       17.00             20.00%            10.00             20.00%     
+
+    Solução: AEDCBA  Custo: 13
+
+    Melhores Resultados
+            		 Rotas        Custo       Média Custo    Crossovers      Mutações   
+    	Geração  1  	 ADECBA      17.00          19.40            0              0      
+	Geração  2  	 ADECBA      17.00          17.00            2              0      
+	Geração  3  	 ADECBA      17.00          17.00            0              0      
+	Geração  4  	 ADECBA      17.00          17.00            1              0      
+	Geração  5  	 ADECBA      17.00          17.00            1              0      
+
+
+    Total 
+        Crossovers: 4
+        Mutações: 0
+    

@@ -1,0 +1,74 @@
+
+    Parâmetros
+    Tipo problema: Custo.MINIMIZAR
+    Quantidade de cidades: 15
+    Cidades: ABCDEFGHIJKLMNO
+    Via: Via.DUPLA
+
+    Gerações: 50
+    Taxa mutação: 0.10%
+    Taxa crossover: 70.00%
+    Quantidade de rotas por geração: 800
+
+    
+
+    Solução: ABCDEFGHIJKLMNOA  Custo: 17
+
+    Melhores Resultados
+            		      Rotas             Custo       Média Custo    Crossovers      Mutações   
+    	Geração   1  	 AMNOHIJKFBCLGDEA      31.00          40.73           269             7      
+	Geração   2  	 AMNOHIJKFBCLGDEA      31.00          40.09           288            12      
+	Geração   3  	 AMNOHIJKFBCLGDEA      31.00          39.58           284            10      
+	Geração   4  	 AMNOHIJKFBCLGDEA      31.00          39.08           282             8      
+	Geração   5  	 ABCJKLDGFEHIMNOA      29.00          38.51           271            11      
+	Geração   6  	 ABCJKLDGFEHIMNOA      29.00          38.01           271            18      
+	Geração   7  	 ABCJKLDGFEHIMNOA      29.00          37.56           280            13      
+	Geração   8  	 ABCJKLDGFEHIMNOA      29.00          37.31           295             8      
+	Geração   9  	 ABCDJLMNOKFGHIEA      27.00          36.97           284            11      
+	Geração  10  	 ABCDJLMNOKFGHIEA      27.00          36.73           297            13      
+	Geração  11  	 ABCDJLMNOKFGHIEA      27.00          36.62           282             9      
+	Geração  12  	 ABCDJLMNOKFGHIEA      27.00          36.34           275            13      
+	Geração  13  	 ABCDJLMNOKFGHIEA      27.00          35.81           272            10      
+	Geração  14  	 ABCDJLMNOKFGHIEA      27.00          35.74           287             7      
+	Geração  15  	 ABCDJLMNOKFGHIEA      27.00          35.42           276            16      
+	Geração  16  	 ABCDJLMNOKFGHIEA      27.00          35.10           286             9      
+	Geração  17  	 ABCDJLMNOKFGHIEA      27.00          34.86           282            10      
+	Geração  18  	 ABCDJLMNOKFGHIEA      27.00          34.56           290            13      
+	Geração  19  	 ABCDJLMNOKFGHIEA      27.00          34.18           295            14      
+	Geração  20  	 ABCKLJDEFGHIMNOA      25.00          33.84           279             9      
+	Geração  21  	 ABCKLJDEFGHIMNOA      25.00          33.40           280            20      
+	Geração  22  	 ABCJKLDEFGHIMNOA      23.00          32.98           276            12      
+	Geração  23  	 ABCJKLDEFGHIMNOA      23.00          32.53           290            13      
+	Geração  24  	 ABCJKLDEFGHIMNOA      23.00          32.30           285            11      
+	Geração  25  	 ABCJKLDEFGHIMNOA      23.00          31.97           283             9      
+	Geração  26  	 ABCJKLDEFGHIMNOA      23.00          31.67           272             9      
+	Geração  27  	 ABCJKLDEFGHIMNOA      23.00          31.14           266             7      
+	Geração  28  	 ABCJKLDEFGHIMNOA      23.00          30.94           281            14      
+	Geração  29  	 ABCJKLDEFGHIMNOA      23.00          30.56           281            10      
+	Geração  30  	 ABCJKLDEFGHIMNOA      23.00          29.89           267            11      
+	Geração  31  	 ABCJKLDEFGHIMNOA      23.00          29.56           300            14      
+	Geração  32  	 ABCJKLDEFGHIMNOA      23.00          28.97           274            10      
+	Geração  33  	 ABCJKLDEFGHIMNOA      23.00          28.50           281            14      
+	Geração  34  	 ABCJKLDEFGHIMNOA      23.00          27.88           295             5      
+	Geração  35  	 ABCJKLDEFGHIMNOA      23.00          27.25           287             6      
+	Geração  36  	 ABCJKLDEFGHIMNOA      23.00          26.68           280             8      
+	Geração  37  	 ABCJKLDEFGHIMNOA      23.00          26.28           274            13      
+	Geração  38  	 ABCJKLDEFGHIMNOA      23.00          25.70           273             4      
+	Geração  39  	 ABCJKLDEFGHIMNOA      23.00          25.36           288            15      
+	Geração  40  	 ABCJKLDEFGHIMNOA      23.00          24.77           269            15      
+	Geração  41  	 ABCJKLDEFGHIMNOA      23.00          24.35           278             9      
+	Geração  42  	 ABCJKLDEFGHIMNOA      23.00          23.95           280            11      
+	Geração  43  	 ABCJKLDEFGHIMNOA      23.00          23.64           290             9      
+	Geração  44  	 ABCJKLDEFGHIMNOA      23.00          23.46           269            14      
+	Geração  45  	 ABCJKLDEFGHIMNOA      23.00          23.39           287            12      
+	Geração  46  	 ABCJKLDEFGHIMNOA      23.00          23.27           292             7      
+	Geração  47  	 ABCJKLDEFGHIMNOA      23.00          23.27           276            10      
+	Geração  48  	 ABCJKLDEFGHIMNOA      23.00          23.20           290             6      
+	Geração  49  	 ABCJKLDEFGHIMNOA      23.00          23.18           282            10      
+	Geração  50  	 ABCJKLDEFGHIMNOA      23.00          23.14           267            10      
+
+
+    Total 
+        Crossovers: 14058
+        Mutações: 539
+    
