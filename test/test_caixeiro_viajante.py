@@ -62,4 +62,32 @@ def test_crossover_entre_ciades(caminho1, caminho2, corte, fim1, fim2):
     r1, r2 = crossover(Rotas(caminho1), Rotas(caminho2), corte)
 
     assert r1.rota.endswith(fim1), f'final diferente {r1.rota} <> {fim1}' 
-    assert r2.rota.endswith(fim2), f'final diferente {r2.rota} <> {fim2}' 
+    assert r2.rota.endswith(fim2), f'final diferente {r2.rota} <> {fim2}'
+
+
+def test_distribuir_trabalho_quantidade_de_trabalho_maior_que_trabalhadores_deve_retornar_uma_distribuicao_com_diferença_max_um():
+    trabalhadores = 4
+    qtd_trabalho = 5
+    
+    distribuicao = distribuir_trabalhos_igualmente(qtd_trabalho, trabalhadores)
+
+    assert len(distribuicao) == 4, f'não foi distribuido entre {trabalhadores}'
+    assert distribuicao.count(1) == 3, f'3 deveriam ter 1 trabalho para realizar'
+    assert distribuicao.count(2) == 1, f'nenhum trabalhador recebeu 2 trabalhos'
+
+
+@pytest.mark.parametrize(
+        'trabalho, trabalhadores',
+        [
+            (1, 1),
+            (2, 2),
+            (3, 3),
+            (8, 4)
+        ]
+)
+def test_distribuir_trabalho_quantidade_igual_de_trabalho_deve_retornar_distribuicao_igual_para_todos(trabalho, trabalhadores):
+
+    distribuicao = distribuir_trabalhos_igualmente(trabalho, trabalhadores)
+
+    assert len(distribuicao) == trabalhadores, f'não foi distribuido entre {trabalhadores}'
+    assert distribuicao.count(int(trabalho/trabalhadores)) == trabalhadores, f'quantidade de trabalho desigual'
