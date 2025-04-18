@@ -1,6 +1,13 @@
 from random import randrange, random
 from enum import Enum
-import string, itertools, fractions, os, sys, time
+import string
+import itertools
+import fractions
+import os, sys, time, math
+import multiprocessing as mp
+from multiprocessing import Queue
+from multiprocessing.synchronize import Lock
+from queue import Empty, Full
 
 
 class Via(Enum):
@@ -17,7 +24,7 @@ CUSTO = Custo.MINIMIZAR
 VIA = Via.DUPLA
 
 # Máximo 52, exceto 4 que não foi implementado ainda
-TOTAL_CIDADES = 30
+TOTAL_CIDADES = 15
 CIDADES = (string.ascii_uppercase+string.ascii_lowercase)[:TOTAL_CIDADES]
 ORIGEM = CIDADES[0]
 
@@ -346,6 +353,188 @@ def criar_prox_geracao(rotas: list[Rotas], taxa_mut: float, taxa_cros: float, co
     return prox_gercao
 
 
+def distribuir_trabalhos_igualmente(trabalhos: int, trabalhadores: int) -> list[int]:
+    qtd_min_trabalho = math.floor(trabalhos/trabalhadores)
+    resto = trabalhos - qtd_min_trabalho*trabalhadores
+    distribuicao = []
+    
+    for i in range(trabalhadores):
+        if resto > 0:
+            distribuicao.append(qtd_min_trabalho + 1)
+            resto -= 1
+        else:
+            distribuicao.append(qtd_min_trabalho)
+
+    return distribuicao
+
+
+def selecionar_rota_multi_process(rotas: list[Rotas], total: int, queue_out: Queue):
+    print(f'\tRealizando seleção: FILHO {os.getpid()}')
+    for _ in range(total):
+        rota_selecionada = selecionar_rota(rotas)
+        queue_out.put(rota_selecionada)
+    print(f'\tFim FILHO {os.getpid()}')
+    
+
+
+def crossover_multi_process(total: int, lock: Lock, queue_in: Queue, queue_out: Queue):
+    print(f'\tRealizando cruzamento: FILHO {os.getpid()}')
+    for _ in range(total):
+        r1:Rotas = queue_in.get(timeout=1)
+        r2:Rotas = queue_in.get(timeout=1)
+
+        if r1 and r2:
+            r1, r2 = crossover(r1, r2)
+            queue_out.put(r1, timeout=1)
+            queue_out.put(r2, timeout=1)
+    
+    r = queue_in.get(timeout=1)
+    while r:
+        queue_out.put(r)
+        r = queue_in.get(timeout=1)
+    print(f'\tFim FILHO {os.getpid()}')
+    
+
+            
+
+def mutacao_multi_process(total, lock: Lock, taxa:float, queue_in: Queue, queue_out: Queue):
+    print(f'\tRealizando mutação: FILHO {os.getpid()}')
+    cont = Contador()
+    for _ in range(total):
+        rota: Rotas = queue_in.get(timeout=1)
+        
+        if not rota:
+            break
+        rota.aplicar_mutacao(taxa=taxa, contador=cont)
+        queue_out.put(rota, timeout=1)
+    print(f'\tFim FILHO {os.getpid()}')
+    
+    # with lock:
+    #     total_mut.value += cont.mutacoes
+
+
+def realizar_selecao(trabalhos:int, trabalhadores:int, rotas: list[Rotas], queue_out: Queue):
+    dist = distribuir_trabalhos_igualmente(trabalhos, trabalhadores)
+    processes: list[mp.Process] = []
+
+    try:
+        print(f'Realizando seleção: PAI {os.getpid()}')
+        for total in dist:
+            p = mp.Process(target=selecionar_rota_multi_process, args=(rotas, total, queue_out))
+            p.start()
+            processes.append(p)
+
+        for p in processes:
+            print(f'Pai: {p.pid} {p.is_alive()}')
+            p.join(timeout=1)
+
+        queue_out.put(None)
+        print(f'Realizando seleção: FIM')
+    except Empty:
+        pass
+    except Full:
+        pass
+    except mp.ProcessError as error:
+        print('Erro em processo: ', error)
+
+
+def realizar_crossover(trabalhos:int, trabalhadores:int, taxa_cros: float,  queue_in: Queue, queue_out: Queue, contador: Contador=None):
+    qtd_crossover = taxa_cros*(trabalhos/2)
+    qtd_crossover = math.floor(qtd_crossover) if trabalhos%2 != 0 else math.ceil(qtd_crossover)
+    total_cross = mp.Value('i', qtd_crossover)
+    lock = mp.Lock()
+    processes: list[mp.Process] = []
+    distribuicao = distribuir_trabalhos_igualmente(qtd_crossover, trabalhadores)
+
+    if contador:
+        contador.crossover(qtd_crossover)
+
+    try:
+        print(f'Realizando cruzamento: PAI {os.getpid()}')
+        for qtd_trabalho in distribuicao:
+            p = mp.Process(target=crossover_multi_process, args=(qtd_trabalho, lock, queue_in, queue_out))
+            p.start()
+            processes.append(p)
+
+        for p in processes:
+            print(f'Pai: {p.pid} {p.is_alive()}')
+            p.join(timeout=1)
+
+        print(f'Realizando cruzamento: FIM')
+    except Empty:
+        pass
+    except Full:
+        pass
+    except mp.ProcessError as error:
+        print('Erro em processo: ', error)
+
+
+def realizar_mutacao(trabalhos:int, trabalhadores:int, taxa_mut: float,  queue_in: Queue, queue_out: Queue, contador:Contador=None):
+    processes: list[mp.Process] = []
+    lock = mp.Lock()
+    distribuicao = distribuir_trabalhos_igualmente(trabalhos, trabalhadores)
+    total_mut = mp.Value('i', 0)
+
+    try:
+        print(f'Realizando mutação: PAI {os.getpid()}')
+        for qtd_trabalho in distribuicao:
+            p = mp.Process(target=mutacao_multi_process, args=(qtd_trabalho, lock, taxa_mut, queue_in, queue_out))
+            p.start()
+            processes.append(p)
+
+        for p in processes:
+            print(f'Pai: {p.pid} {p.is_alive()}')
+            p.join(timeout=1)
+        
+        if contador:
+            contador.mutacao()
+        print(f'Realizando mutação: FIM')
+    except Empty:
+        pass
+    except Full:
+        pass
+    except mp.ProcessError as error:
+        print('Erro em processo: ', error)
+
+
+def criar_prox_geracao_mult_process(rotas: list[Rotas], taxa_mut: float, taxa_cros: float, contador: Contador=None) -> list[Rotas]:
+    if CUSTO == Custo.MAXIMIZAR:
+        rotas.sort(key=lambda rota: rota.custo, reverse=True)
+    else:
+        rotas.sort(key=lambda rota: rota.custo)
+    
+    # Quantidade de núcleos de CPU utilizados para o paralelismo
+    trabalhadores = 2
+
+    individuos: int = len(rotas)
+    prox_geracao: list[Rotas] = []
+
+    fila_selecionados = mp.Queue(maxsize=(individuos+1))
+    fila_cruzados = mp.Queue()
+    fila_mutados = mp.Queue()
+
+    # print("Selecionando")
+    realizar_selecao(individuos, trabalhadores, rotas, fila_selecionados)
+    # print("Cruzando")
+    realizar_crossover(individuos, trabalhadores, taxa_cros, fila_selecionados, fila_cruzados, contador)
+    fila_selecionados.close()
+    fila_selecionados.join_thread()
+    # print("Mutando")
+    realizar_mutacao(individuos, trabalhadores, taxa_mut, fila_cruzados, fila_mutados, contador)
+
+    resultado = fila_mutados.get(timeout=1)
+    while resultado:
+        prox_geracao.append(resultado)
+        resultado = fila_mutados.get(timeout=1) 
+
+    fila_cruzados.close()
+    fila_cruzados.join_thread()
+    fila_mutados.close()
+    fila_mutados.join_thread()
+
+    return prox_geracao
+
+
 def hilight_resultado() -> str:
     return f'\033[92m{resultado()}\033[00m'
 
@@ -472,25 +661,47 @@ def exibir_custos_todas_rotas_possiveis(rotas: list[Rotas], file=None) -> None:
         print(f'\t{i[0]}\t{i[1]}', file=file)
 
 
+def executar_single_processor(rotas: list[Rotas], taxa_mutacao: float, taxa_crossover: float, contador: Contador):
+    # start = time.perf_counter_ns()
+    rotas = criar_prox_geracao(rotas, taxa_mutacao, taxa_crossover, contador)
+    # print(f'Singleprocess {((time.perf_counter_ns()-start)/1e9):.2f} segundos')
+    
+    # start = time.perf_counter_ns()
+    avaliar_rotas(rotas)
+    # print(f'avaliar rota {(time.perf_counter_ns()-start)/1e9}')
+
+    return rotas
+
+
+def executar_mult_processor(rotas: list[Rotas], taxa_mutacao: float, taxa_crossover: float, contador: Contador):
+    # start = time.perf_counter_ns()
+    rotas = criar_prox_geracao_mult_process(rotas, taxa_mutacao, taxa_crossover, contador)
+    # print(f'Multprocess {((time.perf_counter_ns()-start)/1e9):.2f} segundos')
+    avaliar_rotas(rotas)
+    return rotas
+
+
 if __name__ == '__main__':
     try:
         terminal_size = os.get_terminal_size(sys.stdout.fileno()).columns
         print(f'{{:-^{terminal_size}}}'.format(' INICIO DO PROGRAMA '))
-
-        qtd_rotas: int = 1500
-        geracoes: int = 800
+        multi_process = True
+        qtd_rotas: int = 300
+        geracoes: int = 10
         geracao: int = 0
         taxa_mutacao: float = 0.001
         taxa_crossover: float = 0.7
         melhores_resultados: list[tuple[int, Rotas, float, int, int]] = []
         contador: Contador = Contador()
-        file_name = f'AG-Resultados-{CUSTO.name}_{VIA.name}_C{TOTAL_CIDADES}_R{qtd_rotas}_G{geracoes}.txt'
+        contador.start_timer()
+        file_name = f'AG-Resultados-{"N_PROCESS" if multi_process else "SINGLE_PROCESS"}-{CUSTO.name}_{VIA.name}_C{TOTAL_CIDADES}_R{qtd_rotas}_G{geracoes}.txt'
+        file = None
+        # try:
+            # file = open(file_name, 'x',encoding="utf-8")
+        # except FileExistsError:
+            # print(f'O arquivo {file_name}  já existe.')
+            # file = None
         
-        try:
-            file = open(file_name, 'x',encoding="utf-8")
-        except FileExistsError:
-            print(f'O arquivo {file_name}  já existe.')
-            file = None
 
         if file:
             print(f'\nSalvando em {file_name}')
@@ -499,18 +710,23 @@ if __name__ == '__main__':
 
         rotas: list[Rotas] = [ Rotas(gerar_caminho()) for _ in range(qtd_rotas) ]
         avaliar_rotas(rotas)
+
         if qtd_rotas < 100:
             exibir_populacao_incial(rotas, file=file)
         while geracao < geracoes:
             geracao += 1
+            contador.start_generation_timer()
 
-            rotas = criar_prox_geracao(rotas, taxa_mutacao, taxa_crossover, contador)
-            avaliar_rotas(rotas)
+            if multi_process:
+                rotas = executar_mult_processor(rotas, taxa_mutacao, taxa_crossover, contador)
+            else:
+                rotas = executar_single_processor(rotas, taxa_mutacao, taxa_crossover, contador)
 
+            contador.end_generation_timer()
             media = sum([r.custo for r in rotas]) / len(rotas)
             melhores_resultados.append((geracao, rotas[0].copy(), media, contador.crossovers, contador.mutacoes))
             
-            if geracoes < 10:
+            if geracoes < 10 and qtd_rotas < 20:
                 print(f'Geração {geracao}', file=file)
                 exibir_geracao(rotas, file=file)
             else:
@@ -518,6 +734,9 @@ if __name__ == '__main__':
             contador.reset()
 
         exibir_melhores_resultados(melhores_resultados, file=file)
+        contador.end_timer()
+        print(f'Tempo total decorrido: {contador.timer:.2f}s')
+        print(f'Tempo médio de geraçoes: {(contador.total_generacao_time/geracoes):.2f}s')
 
     except Exception as e:
         print(f'Erro: {e}')
@@ -525,4 +744,4 @@ if __name__ == '__main__':
     finally:
         if file:
             file.close()
-        print(f'{{:-^{terminal_size}}}'.format(' FIM PROGRAMA '))
+        print(f'{{:-^{terminal_size}}}'.format(' FIM DO PROGRAMA '))
