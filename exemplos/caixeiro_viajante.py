@@ -195,7 +195,7 @@ def calcular_custo_entre_cidades(rota: str) -> int:
 
 def resultado() -> str:
     if TOTAL_CIDADES == 4:
-        raise NotImplementedError('funcão custo para 4 cidades não implementado')
+        raise NotImplementedError('função custo para 4 cidades não implementado')
     
     if CUSTO == Custo.MINIMIZAR:
         if TOTAL_CIDADES == 5 and VIA == Via.DUPLA:
@@ -270,17 +270,22 @@ def avaliar_rotas(rotas: list[Rotas]):
         for r in rotas:
             r.nota = (r.custo * 10.0) / maior_custo
 
-        rotas.sort(key=lambda rota: rota.custo, reverse=True)   
+        rotas.sort(key=lambda rota: rota.custo, reverse=True)
 
 
 def selecionar_rota(rotas: list[Rotas]) -> Rotas:
     aleatorio = random()
     total = 0
-
-    for r in rotas:
-        total += r.custo_prop if CUSTO == Custo.MAXIMIZAR else r.nota_prop
-        if total >= aleatorio:
-            return r
+    if CUSTO == Custo.MAXIMIZAR:
+        for r in rotas:
+            total += r.custo_prop
+            if total >= aleatorio:
+                return r
+    else:
+        for r in rotas:
+            total += r.nota_prop
+            if total >= aleatorio:
+                return r
 
 
 def crossover(rota_1: Rotas, rota_2: Rotas, corte: int=None) -> tuple[Rotas, Rotas]:
