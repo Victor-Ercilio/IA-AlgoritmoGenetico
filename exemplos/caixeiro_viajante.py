@@ -47,21 +47,42 @@ class Contador:
         self.crossovers = 0
         self.total_mut = 0
         self.total_cros = 0
+        self.generacao_time = 0
+        self.total_generacao_time = 0
+        self.timer = 0
     
 
-    def mutacao(self) -> None:
-        self.mutacoes += 1
+    def mutacao(self, n:int=1) -> None:
+        self.mutacoes += n
 
 
-    def crossover(self) -> None:
-        self.crossovers += 1
+    def crossover(self, n:int=1) -> None:
+        self.crossovers += n
 
+
+    def start_generation_timer(self):
+        self.generacao_time = time.monotonic()
     
+
+    def end_generation_timer(self):
+        self.generacao_time = time.monotonic() - self.generacao_time
+        
+    
+    def start_timer(self):
+        self.timer = time.monotonic()
+    
+
+    def end_timer(self):
+        self.timer = time.monotonic() - self.timer
+
+
     def reset(self) -> None:
         self.total_mut += self.mutacoes
         self.total_cros += self.crossovers
+        self.total_generacao_time += self.generacao_time
         self.mutacoes = 0
         self.crossovers = 0
+        self.generacao_time = 0
 
 
 class Rotas:
