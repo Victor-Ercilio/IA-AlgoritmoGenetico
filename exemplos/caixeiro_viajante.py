@@ -534,10 +534,11 @@ def exibir_geracao_numero(tag: str, atual:int, total: int):
         print(f'{limpa_num}{(atual):0>{tam}}', end='', flush=True)
 
 
-def exibir_problema(taxa_mutacao:float, taxa_crossover:float, total_rotas:int, geracoes:int, file=None) -> None:
+def exibir_problema(taxa_mutacao:float, taxa_crossover:float, total_rotas:int, geracoes:int, processamento:Processamento, cores:int, file=None) -> None:
     print(f"""
     Parâmetros
     Tipo problema: {CUSTO}
+    Tipo processamento: {processamento.name} ({cores})
     Quantidade de cidades: {TOTAL_CIDADES}
     Cidades: {CIDADES}
     Via: {VIA}
@@ -601,21 +602,13 @@ def exibir_custos_todas_rotas_possiveis(rotas: list[Rotas], file=None) -> None:
 
 
 def executar_single_processor(rotas: list[Rotas], taxa_mutacao: float, taxa_crossover: float, contador: Contador):
-    # start = time.perf_counter_ns()
     rotas = criar_prox_geracao(rotas, taxa_mutacao, taxa_crossover, contador)
-    # print(f'Singleprocess {((time.perf_counter_ns()-start)/1e9):.2f} segundos')
-    
-    # start = time.perf_counter_ns()
     avaliar_rotas(rotas)
-    # print(f'avaliar rota {(time.perf_counter_ns()-start)/1e9}')
-
     return rotas
 
 
 def executar_mult_processor(trabalhadores:int, rotas: list[Rotas], taxa_mutacao: float, taxa_crossover: float, contador: Contador):
-    # start = time.perf_counter_ns()
     rotas = criar_prox_geracao_mult_process(trabalhadores, rotas, taxa_mutacao, taxa_crossover, contador)
-    # print(f'Multprocess {((time.perf_counter_ns()-start)/1e9):.2f} segundos')
     avaliar_rotas(rotas)
     return rotas
 
