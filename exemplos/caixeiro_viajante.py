@@ -57,8 +57,14 @@ class Contador:
         self.crossovers = 0
         self.total_mut = 0
         self.total_cros = 0
-        self.generacao_time = 0
-        self.total_generacao_time = 0
+        self.generacao_timer = 0
+        self.total_generacao_timer = 0
+        self.crossover_timer = 0
+        self.total_crossover_timer = 0
+        self.mutacao_timer = 0
+        self.total_mutacao_timer = 0
+        self.selecao_timer = 0
+        self.total_selecao_timer = 0
         self.timer = 0
     
 
@@ -71,12 +77,12 @@ class Contador:
 
 
     def start_generation_timer(self):
-        self.generacao_time = time.monotonic()
+        self.generacao_timer = time.monotonic()
     
 
     def end_generation_timer(self):
-        self.generacao_time = time.monotonic() - self.generacao_time
-        
+        self.generacao_timer = time.monotonic() - self.generacao_timer
+    
     
     def start_timer(self):
         self.timer = time.monotonic()
@@ -84,15 +90,45 @@ class Contador:
 
     def end_timer(self):
         self.timer = time.monotonic() - self.timer
+    
+    
+    def start_crossover_timer(self):
+        self.crossover_timer = time.monotonic()
+    
+
+    def end_crossover_timer(self):
+        self.crossover_timer = time.monotonic() - self.crossover_timer
+
+
+    def start_mutacao_timer(self):
+        self.mutacao_timer = time.monotonic()
+    
+
+    def end_mutacao_timer(self):
+        self.mutacao_timer = time.monotonic() - self.mutacao_timer
+
+
+    def start_selecao_timer(self):
+        self.selecao_timer = time.monotonic()
+    
+
+    def end_selecao_timer(self):
+        self.selecao_timer = time.monotonic() - self.selecao_timer
 
 
     def reset(self) -> None:
         self.total_mut += self.mutacoes
         self.total_cros += self.crossovers
-        self.total_generacao_time += self.generacao_time
+        self.total_generacao_timer += self.generacao_timer
+        self.total_selecao_timer += self.selecao_timer
+        self.total_crossover_timer += self.crossover_timer
+        self.total_mutacao_timer += self.mutacao_timer
         self.mutacoes = 0
         self.crossovers = 0
-        self.generacao_time = 0
+        self.generacao_timer = 0
+        self.selecao_timer = 0
+        self.crossover_timer = 0
+        self.mutacao_timer = 0
 
 
 class Rotas:
@@ -398,26 +434,36 @@ def criar_prox_geracao_mult_process(trabalhadores: int, rotas: list[Rotas], taxa
     prox_geracao.append(rotas[0].copy())
 
     with mp.Pool(processes=trabalhadores) as pool:
+        if contador:
+            contador.start_selecao_timer()
         selecao_rotas_fixa = functools.partial(selecionar_rota, rotas=rotas)
 
         selecionados = pool.starmap(selecao_rotas_fixa, (tuple() for _ in range((individuos - len(prox_geracao)))) )
+        if contador:
+            contador.end_selecao_timer()
 
-        
         for selecionado in selecionados:
             prox_geracao.append(selecionado)
         
-        quantidade_crossovers = calcular_quantidade_crossovers(taxa_cros, individuos, trabalhadores)
         if contador:
-            contador.crossover(quantidade_crossovers)
+            contador.start_crossover_timer()
+        quantidade_crossovers = calcular_quantidade_crossovers(taxa_cros, individuos, trabalhadores)
 
         cruzados: list[tuple[Rotas, Rotas]] = pool.starmap(crossover, ((prox_geracao.pop(0), prox_geracao.pop(1)) for _ in range(quantidade_crossovers)))
+        if contador:
+            contador.crossover(quantidade_crossovers)
+            contador.end_crossover_timer()
 
         for c1, c2 in cruzados:
             prox_geracao.append(c1)
             prox_geracao.append(c2)
         
 
+        if contador:
+            contador.start_mutacao_timer()
         mutados: list[tuple[Rotas, Contador]] = pool.starmap(mutacao, ((prox_geracao.pop(0), taxa_mut, Contador()) for _ in range(len(prox_geracao))) )
+        if contador:
+            contador.end_mutacao_timer()
 
 
         for individuo, cont in mutados:
@@ -630,7 +676,11 @@ if __name__ == '__main__':
         exibir_melhores_resultados(melhores_resultados, file=file)
         contador.end_timer()
         print(f'Tempo total decorrido: {contador.timer:.2f}s')
-        print(f'Tempo médio de geraçoes: {(contador.total_generacao_time/geracoes):.2f}s')
+        print(f'Tempo total em seleção: {contador.total_selecao_timer:.2f}s')
+        print(f'Tempo total em crossover: {contador.total_crossover_timer:.2f}s')
+        print(f'Tempo total em mutação: {contador.total_mutacao_timer:.2f}s')
+
+        print(f'Tempo médio de geraçoes: {(contador.total_generacao_timer/geracoes):.2f}s')
 
     except Exception as e:
         print(f'Erro: {e}')
