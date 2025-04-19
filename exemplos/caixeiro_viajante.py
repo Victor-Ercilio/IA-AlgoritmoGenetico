@@ -624,17 +624,17 @@ if __name__ == '__main__':
     try:
         terminal_size = os.get_terminal_size(sys.stdout.fileno()).columns
         print(f'{{:-^{terminal_size}}}'.format(' INICIO DO PROGRAMA '))
-        multi_process = True
-        cores = 2
-        qtd_rotas: int = 3000
-        geracoes: int = 50
+        processamento: Processamento = Processamento.MULTI_CORE
+        cores: int = 2
+        qtd_rotas: int = 2000
+        geracoes: int = 100
         geracao: int = 0
         taxa_mutacao: float = 0.001
         taxa_crossover: float = 0.7
         melhores_resultados: list[tuple[int, Rotas, float, int, int]] = []
         contador: Contador = Contador()
         contador.start_timer()
-        file_name = f'AG-Resultados-{"N_PROCESS" if multi_process else "SINGLE_PROCESS"}-{CUSTO.name}_{VIA.name}_C{TOTAL_CIDADES}_R{qtd_rotas}_G{geracoes}.txt'
+        file_name = f'AG-Resultados-{processamento.name}-{CUSTO.name}_{VIA.name}_C{TOTAL_CIDADES}_R{qtd_rotas}_G{geracoes}.txt'
         file = None
 
         # try:
@@ -646,7 +646,7 @@ if __name__ == '__main__':
         if file:
             print(f'\nSalvando em {file_name}')
 
-        exibir_problema(taxa_mutacao, taxa_crossover, qtd_rotas, geracoes, file)
+        exibir_problema(taxa_mutacao, taxa_crossover, qtd_rotas, geracoes, processamento, cores, file)
 
         rotas: list[Rotas] = [ Rotas(gerar_caminho()) for _ in range(qtd_rotas) ]
         avaliar_rotas(rotas)
@@ -657,7 +657,7 @@ if __name__ == '__main__':
             geracao += 1
             contador.start_generation_timer()
 
-            if multi_process:
+            if processamento == Processamento.MULTI_CORE:
                 rotas = executar_mult_processor(cores, rotas, taxa_mutacao, taxa_crossover, contador)
             else:
                 rotas = executar_single_processor(rotas, taxa_mutacao, taxa_crossover, contador)
