@@ -20,8 +20,15 @@ Um vendedor precisa passar por uma lista de cidades uma única vez e retornar a 
 
 #### Solução
 
-Uma solução poder ser encontrada na pasta /exemplos/caixeiro_viajante.py, ela utiliza um Algoritmo Genético para tentar chegar a solução mais próxima ou ótima 
-do problema.
+Uma solução poder ser encontrada na pasta /exemplos/caixeiro_viajante.py, ela utiliza um Algoritmo Genético para tentar chegar a solução mais próxima ou ótima do problema. Além disso, exemplos de resultados obtidos utilizando este AG podem ser vistos na pasta /exemplos/resultados_caixeiro_viajante para diferentes de parâmetros.
+
+A nomenclatura dos arquivos varia um pouco, mas, no geral:
+- MINIMIZAR ou MAXIMIZAR - função custo do trajeto;
+- MULTI_CORE ou SINGLE_CORE - tipo de processamento, se não houver considerar SINGLE_CORE;
+- DUPLA ou UNICA - tipos de via;
+- C - quantidade de cidades;
+- R - quantidade de rotas (individuos ou cromossomos no alritmo);
+- G - quantidade de gerações.
 
 #### Dependências
 
@@ -50,6 +57,16 @@ Se o par estiver em ordem inversa, como "DC", "CB", "BA", etc., terá o peso 2 e
 Assim, a solução ou o menor caminho será aquele que estiver em ordem alfabética.
 
 O máximo é 52 cidades que é a soma de todas as letras do alfabeto em letras maiúsculas e minúsculas.
+
+#### Como executar
+
+Considerando que as dependências já estejam satisfeitas.
+
+1. Clone este repositório para sua máquina local
+    - através do git, digite o comando "git clone https://github.com/Victor-Ercilio/IA-AlgoritmoGenetico.git" ou;
+    - baixe os arquivos clicando no botão Code e depois em "Download ZIP".
+2. Abra um terminal na pasta raiz, ou seja, onde o arquivo main.py se encontra, e digite o comando "python -m exemplos.caixeiro_viajante"
+
 
 #### Rotas
 
