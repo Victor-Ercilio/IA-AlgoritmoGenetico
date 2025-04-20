@@ -1,0 +1,97 @@
+
+    Parâmetros
+    Tipo problema: Custo.MINIMIZAR
+    Tipo processamento: MULTI_CORE (2)
+    Quantidade de cidades: 15
+    Cidades: ABCDEFGHIJKLMNO
+    Via: Via.DUPLA
+
+    Gerações: 70
+    Taxa mutação: 0.10%
+    Taxa crossover: 70.00%
+    Quantidade de rotas por geração: 5000
+
+    
+
+    Solução: ABCDEFGHIJKLMNOA  Custo: 17
+
+    Melhores Resultados
+            		      Rotas             Custo       Média Custo    Crossovers      Mutações   
+
+    	Geração   1  	 ADEFGMIJKLONHBCA      30.00          40.75          1750            70      
+	Geração   2  	 AGCBDKLMNOEFHIJA      30.00          40.05          1750            64      
+	Geração   3  	 ABFGHLMDEIJKNOCA      29.00          39.42          1750            48      
+	Geração   4  	 ABGCDKLMNOEFHIJA      27.00          38.94          1750            72      
+	Geração   5  	 ABGCDKLMNOEFHIJA      27.00          38.46          1750            79      
+	Geração   6  	 ABGCDKLMNOEFHIJA      27.00          38.05          1750            70      
+	Geração   7  	 ACDEFGHIBOJKLMNA      25.00          37.61          1750            72      
+	Geração   8  	 ABCDMNOJKLEFGHIA      23.00          37.23          1750            77      
+	Geração   9  	 ABCMONDEFGHIJKLA      24.00          36.97          1750            75      
+	Geração  10  	 ABEFGHIJKLMCDNOA      23.00          36.56          1750            74      
+	Geração  11  	 ABEFGHIJKLMCDNOA      23.00          36.15          1750            59      
+	Geração  12  	 ABEFGHIJKLMCDNOA      23.00          35.80          1750            61      
+	Geração  13  	 ABEFGHIJKLMCDNOA      23.00          35.44          1750            71      
+	Geração  14  	 ABEFGHIJKLMCDNOA      23.00          35.07          1750            68      
+	Geração  15  	 ABCDJKLMNOEFGHIA      21.00          34.80          1750            57      
+	Geração  16  	 ABCDJKLMNOEFGHIA      21.00          34.46          1750            62      
+	Geração  17  	 ABCDJKLMNOEFGHIA      21.00          34.25          1750            81      
+	Geração  18  	 ABCDJKLMNOEFGHIA      21.00          34.05          1750            77      
+	Geração  19  	 ABCDJKLMNOEFGHIA      21.00          33.61          1750            63      
+	Geração  20  	 ABCDJKLMNOEFGHIA      21.00          33.09          1750            76      
+	Geração  21  	 ABCDJKLMNOEFGHIA      21.00          32.69          1750            54      
+	Geração  22  	 ABCDJKLMNOEFGHIA      21.00          32.43          1750            74      
+	Geração  23  	 ABCDJKLMNOEFGHIA      21.00          32.17          1750            83      
+	Geração  24  	 ABCDJKLMNOEFGHIA      21.00          31.62          1750            69      
+	Geração  25  	 ABCIJKLMNODEFGHA      21.00          31.38          1750            63      
+	Geração  26  	 ABCDJKLMNOEFGHIA      21.00          31.00          1750            63      
+	Geração  27  	 ABCDJKLMNOEFGHIA      21.00          30.63          1750            68      
+	Geração  28  	 ABCDJKLMNOEFGHIA      21.00          30.07          1750            69      
+	Geração  29  	 ABCDJKLMNOEFGHIA      21.00          29.66          1750            73      
+	Geração  30  	 ABCDJKLMNOEFGHIA      21.00          29.25          1750            74      
+	Geração  31  	 ABCDJKLMNOEFGHIA      21.00          28.40          1750            75      
+	Geração  32  	 ABCDJKLMNOEFGHIA      21.00          27.73          1750            76      
+	Geração  33  	 ABCDJKLMNOEFGHIA      21.00          27.06          1750            76      
+	Geração  34  	 ABCDJKLMNOEFGHIA      21.00          26.33          1750            61      
+	Geração  35  	 ABCDJKLMNOEFGHIA      21.00          25.86          1750            88      
+	Geração  36  	 ABCMNODEFGHIJKLA      21.00          25.28          1750            79      
+	Geração  37  	 ABCDJKLMNOEFGHIA      21.00          24.68          1750            64      
+	Geração  38  	 ABCDJKLMNOEFGHIA      21.00          24.07          1750            61      
+	Geração  39  	 ABCDJKLMNOEFGHIA      21.00          23.51          1750            69      
+	Geração  40  	 ABCDJKLMNOEFGHIA      21.00          23.15          1750            70      
+	Geração  41  	 ABCDJKLMNOEFGHIA      21.00          22.76          1750            80      
+	Geração  42  	 ABCDJKLMNOEFGHIA      21.00          22.42          1750            71      
+	Geração  43  	 ABCDJKLMNOEFGHIA      21.00          22.10          1750            67      
+	Geração  44  	 ABCDJKLMNOEFGHIA      21.00          21.86          1750            56      
+	Geração  45  	 ABCDJKLMNOEFGHIA      21.00          21.67          1750            78      
+	Geração  46  	 ABCDJKLMNOEFGHIA      21.00          21.60          1750            60      
+	Geração  47  	 ABCDJKLMNOEFGHIA      21.00          21.47          1750            58      
+	Geração  48  	 ABCDJKLMNOEFGHIA      21.00          21.40          1750            68      
+	Geração  49  	 ABCDJKLMNOEFGHIA      21.00          21.37          1750            101     
+	Geração  50  	 ABCDJKLMNOEFGHIA      21.00          21.31          1750            72      
+	Geração  51  	 ABCDJKLMNOEFGHIA      21.00          21.24          1750            79      
+	Geração  52  	 ABCDJKLMNOEFGHIA      21.00          21.24          1750            62      
+	Geração  53  	 ABCDJKLMNOEFGHIA      21.00          21.23          1750            86      
+	Geração  54  	 ABCDJKLMNOEFGHIA      21.00          21.23          1750            71      
+	Geração  55  	 ABCDJKLMNOEFGHIA      21.00          21.20          1750            75      
+	Geração  56  	 ABCDJKLMNOEFGHIA      21.00          21.22          1750            86      
+	Geração  57  	 ABCDJKLMNOEFGHIA      21.00          21.20          1750            66      
+	Geração  58  	 ABCDJKLMNOEFGHIA      21.00          21.19          1750            73      
+	Geração  59  	 ABCDJKLMNOEFGHIA      21.00          21.18          1750            79      
+	Geração  60  	 ABCDJKLMNOEFGHIA      21.00          21.15          1750            70      
+	Geração  61  	 ABCDJKLMNOEFGHIA      21.00          21.14          1750            79      
+	Geração  62  	 ABCDJKLMNOEFGHIA      21.00          21.17          1750            67      
+	Geração  63  	 ABCDJKLMNOEFGHIA      21.00          21.13          1750            65      
+	Geração  64  	 ABCDJKLMNOEFGHIA      21.00          21.15          1750            72      
+	Geração  65  	 ABCDJKLMNOEFGHIA      21.00          21.19          1750            73      
+	Geração  66  	 ABCDJKLMNOEFGHIA      21.00          21.13          1750            74      
+	Geração  67  	 ABCDJKLMNOEFGHIA      21.00          21.14          1750            76      
+	Geração  68  	 ABCDJKLMNOEFGHIA      21.00          21.16          1750            62      
+	Geração  69  	 ABCDJKLMNOEFGHIA      21.00          21.14          1750            87      
+	Geração  70  	 ABCDJKLMNOEFGHIA      21.00          21.10          1750            62      
+
+
+    Total 
+        Crossovers: 122500
+        Mutações: 4960
+
+    
