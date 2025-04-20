@@ -1,179 +1,26 @@
 from random import randrange, random
-from enum import Enum
 import string
 import itertools
 import functools
-import fractions
-import os, sys, time, math
+import os, sys, math
 import multiprocessing as mp
 
+from enums.custo import Custo
+from enums.via import Via
+from enums.processamento import Processamento
 
-class Processamento(Enum):
-    SINGLE_CORE = 1
-    MULTI_CORE = 2
-
-
-class Via(Enum):
-    UNICA = 1
-    DUPLA = 2
-
-
-class Custo(Enum):
-    MAXIMIZAR = 1
-    MINIMIZAR = 2
-
+from classes.utils import Utils
+from classes.contador import Contador
+from classes.rotas import Rotas
+from classes.exibir import Exibir
 
 CUSTO = Custo.MINIMIZAR
 VIA = Via.DUPLA
 
 # Máximo 52, exceto 4 que não foi implementado ainda
-TOTAL_CIDADES = 15
+TOTAL_CIDADES = 25
 CIDADES = (string.ascii_uppercase+string.ascii_lowercase)[:TOTAL_CIDADES]
 ORIGEM = CIDADES[0]
-
-
-def realizar_operacao(taxa: float) -> bool:
-    """
-    Retorna se uma operação qualquer deve ser realizada
-    com base em sua frequência de execução.
-    :taxa: float entre 0 e 1
-
-    Ex: se uma função precisa ser executada aleatoriamente em 
-    30% das vezes que é chamada, sua taxa é de 0.3 ou 3/10.
-    Um número aleatório é escolhido de 0 até 9 (10-1) e se for
-    menor que 3 então é retornado verdadeiro.
-    """
-    if taxa < 0 or taxa > 1:
-        raise ValueError
-
-    fr = fractions.Fraction(taxa).limit_denominator()
-    return randrange(fr.denominator) < fr.numerator
-
-
-class Contador:
-
-    def __init__(self):
-        self.mutacoes = 0
-        self.crossovers = 0
-        self.total_mut = 0
-        self.total_cros = 0
-        self.generacao_timer = 0
-        self.total_generacao_timer = 0
-        self.crossover_timer = 0
-        self.total_crossover_timer = 0
-        self.mutacao_timer = 0
-        self.total_mutacao_timer = 0
-        self.selecao_timer = 0
-        self.total_selecao_timer = 0
-        self.timer = 0
-    
-
-    def mutacao(self, n:int=1) -> None:
-        self.mutacoes += n
-
-
-    def crossover(self, n:int=1) -> None:
-        self.crossovers += n
-
-
-    def start_generation_timer(self):
-        self.generacao_timer = time.monotonic()
-    
-
-    def end_generation_timer(self):
-        self.generacao_timer = time.monotonic() - self.generacao_timer
-    
-    
-    def start_timer(self):
-        self.timer = time.monotonic()
-    
-
-    def end_timer(self):
-        self.timer = time.monotonic() - self.timer
-    
-    
-    def start_crossover_timer(self):
-        self.crossover_timer = time.monotonic()
-    
-
-    def end_crossover_timer(self):
-        self.crossover_timer = time.monotonic() - self.crossover_timer
-
-
-    def start_mutacao_timer(self):
-        self.mutacao_timer = time.monotonic()
-    
-
-    def end_mutacao_timer(self):
-        self.mutacao_timer = time.monotonic() - self.mutacao_timer
-
-
-    def start_selecao_timer(self):
-        self.selecao_timer = time.monotonic()
-    
-
-    def end_selecao_timer(self):
-        self.selecao_timer = time.monotonic() - self.selecao_timer
-
-
-    def reset(self) -> None:
-        self.total_mut += self.mutacoes
-        self.total_cros += self.crossovers
-        self.total_generacao_timer += self.generacao_timer
-        self.total_selecao_timer += self.selecao_timer
-        self.total_crossover_timer += self.crossover_timer
-        self.total_mutacao_timer += self.mutacao_timer
-        self.mutacoes = 0
-        self.crossovers = 0
-        self.generacao_timer = 0
-        self.selecao_timer = 0
-        self.crossover_timer = 0
-        self.mutacao_timer = 0
-
-
-class Rotas:
-
-    def __init__(self, rota:str, custo:float=0.0, custo_proporcional:float=0.0, nota:float=0.0, nota_proporcional:float=0.0):
-        self.rota = rota
-        self.custo = custo
-        self.custo_prop = custo_proporcional
-        self.nota = nota
-        self.nota_prop = nota_proporcional
-
-    
-    def __str__(self):
-        return self.rota
-    
-
-    def __repr__(self):
-        return f'Rota({self.rota}, {self.custo}, {self.custo_prop}, {self.nota}, {self.nota_prop})'
-    
-
-    def copy(self):
-        return Rotas(self.rota, self.custo, self.custo_prop, self.nota, self.nota_prop)
-    
-
-    def aplicar_mutacao(self, taxa: float, contador: Contador=None):
-        cidades = self.rota[1:len(self.rota)-1]
-
-        if len(cidades) > 1:
-            for i in range(len(cidades)):
-                if realizar_operacao(taxa):
-                    if contador:
-                        contador.mutacao()
-                    atual = cidades[i]
-                    outras = cidades.replace(cidades[i], '') 
-                    index_outra = randrange(len(outras))
-                    outra = outras[index_outra]
-
-                    cidades = cidades.replace(atual, '.')
-                    cidades = cidades.replace(outra, ',')
-                    
-                    cidades = cidades.replace('.', outra)
-                    cidades = cidades.replace(',', atual)
-        
-        self.rota = self.rota[0] + cidades + self.rota[-1]
-
 
 def calcular_custo_entre_cidades(rota: str) -> int:
     if TOTAL_CIDADES == 3 and VIA == Via.DUPLA:
@@ -375,7 +222,7 @@ def criar_prox_geracao(rotas: list[Rotas], taxa_mut: float, taxa_cros: float, co
     while len(prox_gercao) < tamanho:
         r1, r2 = selecionar_rota(rotas), selecionar_rota(rotas)
         
-        if realizar_operacao(taxa_cros):
+        if Utils.realizar_operacao(taxa_cros):
             if contador:
                 contador.crossover()
             r1, r2 = crossover(r1, r2)
@@ -387,7 +234,7 @@ def criar_prox_geracao(rotas: list[Rotas], taxa_mut: float, taxa_cros: float, co
             prox_gercao.append(r1)
             prox_gercao.append(r2)
         else:
-            prox_gercao.append(r1 if realizar_operacao(0.5) else r2)
+            prox_gercao.append(r1 if Utils.realizar_operacao(0.5) else r2)
 
     return prox_gercao
 
@@ -407,13 +254,9 @@ def distribuir_trabalhos_igualmente(trabalhos: int, trabalhadores: int) -> list[
     return distribuicao
 
 
-def eh_impar(valor: int) -> bool:
-    return valor % 2 != 0
-
-
 def calcular_quantidade_crossovers(taxa:float, trabalhos:int, trabalhadores:int) -> int:
     quantidade = taxa * (trabalhos / 2)
-    quantidade = math.floor(quantidade) if eh_impar(trabalhos) else math.ceil(quantidade)
+    quantidade = math.floor(quantidade) if Utils.eh_impar(trabalhos) else math.ceil(quantidade)
     return quantidade
 
 
@@ -436,9 +279,8 @@ def criar_prox_geracao_mult_process(trabalhadores: int, rotas: list[Rotas], taxa
     with mp.Pool(processes=trabalhadores) as pool:
         if contador:
             contador.start_selecao_timer()
-        selecao_rotas_fixa = functools.partial(selecionar_rota, rotas=rotas)
-
-        selecionados = pool.starmap(selecao_rotas_fixa, (tuple() for _ in range((individuos - len(prox_geracao)))) )
+        total = individuos - len(prox_geracao)
+        selecionados = pool.imap(selecionar_rota, (rotas for _ in range(total)), chunksize=total )
         if contador:
             contador.end_selecao_timer()
 
@@ -449,7 +291,7 @@ def criar_prox_geracao_mult_process(trabalhadores: int, rotas: list[Rotas], taxa
             contador.start_crossover_timer()
         quantidade_crossovers = calcular_quantidade_crossovers(taxa_cros, individuos, trabalhadores)
 
-        cruzados: list[tuple[Rotas, Rotas]] = pool.starmap(crossover, ((prox_geracao.pop(0), prox_geracao.pop(1)) for _ in range(quantidade_crossovers)))
+        cruzados: list[tuple[Rotas, Rotas]] = pool.starmap(crossover, ((prox_geracao.pop(0), prox_geracao.pop(1)) for _ in range(quantidade_crossovers)), chunksize=quantidade_crossovers)
         if contador:
             contador.crossover(quantidade_crossovers)
             contador.end_crossover_timer()
@@ -461,7 +303,8 @@ def criar_prox_geracao_mult_process(trabalhadores: int, rotas: list[Rotas], taxa
 
         if contador:
             contador.start_mutacao_timer()
-        mutados: list[tuple[Rotas, Contador]] = pool.starmap(mutacao, ((prox_geracao.pop(0), taxa_mut, Contador()) for _ in range(len(prox_geracao))) )
+        total = len(prox_geracao)
+        mutados: list[tuple[Rotas, Contador]] = pool.starmap(mutacao, ((prox_geracao.pop(0), taxa_mut, Contador()) for _ in range(total)), chunksize=total )
         if contador:
             contador.end_mutacao_timer()
 
@@ -538,7 +381,7 @@ def exibir_problema(taxa_mutacao:float, taxa_crossover:float, total_rotas:int, g
     print(f"""
     Parâmetros
     Tipo problema: {CUSTO}
-    Tipo processamento: {processamento.name} ({cores})
+    Tipo processamento: {processamento.name} ({cores if processamento == Processamento.MULTI_CORE else 1})
     Quantidade de cidades: {TOTAL_CIDADES}
     Cidades: {CIDADES}
     Via: {VIA}
@@ -617,9 +460,9 @@ if __name__ == '__main__':
     try:
         terminal_size = os.get_terminal_size(sys.stdout.fileno()).columns
         print(f'{{:-^{terminal_size}}}'.format(' INICIO DO PROGRAMA '))
-        processamento: Processamento = Processamento.MULTI_CORE
-        cores: int = 2
-        qtd_rotas: int = 2000
+        processamento: Processamento = Processamento.SINGLE_CORE
+        cores: int = 4
+        qtd_rotas: int = 1200
         geracoes: int = 100
         geracao: int = 0
         taxa_mutacao: float = 0.001
@@ -627,18 +470,18 @@ if __name__ == '__main__':
         melhores_resultados: list[tuple[int, Rotas, float, int, int]] = []
         contador: Contador = Contador()
         contador.start_timer()
-        file_name = f'AG-Resultados-{processamento.name}-{CUSTO.name}_{VIA.name}_C{TOTAL_CIDADES}_R{qtd_rotas}_G{geracoes}.txt'
+        file_name = f'AG-Resultados-{processamento.name}_{cores}-{CUSTO.name}_{VIA.name}_C{TOTAL_CIDADES}_R{qtd_rotas}_G{geracoes}.txt'
         file = None
 
-        # try:
-            # file = open(file_name, 'x',encoding="utf-8")
-        # except FileExistsError:
-            # print(f'O arquivo {file_name}  já existe.')
-            # file = None
+        try:
+            file = open(file_name, 'x',encoding="utf-8")
+        except FileExistsError:
+            print(f'O arquivo {file_name}  já existe.')
+            file = None
 
         if file:
             print(f'\nSalvando em {file_name}')
-
+        
         exibir_problema(taxa_mutacao, taxa_crossover, qtd_rotas, geracoes, processamento, cores, file)
 
         rotas: list[Rotas] = [ Rotas(gerar_caminho()) for _ in range(qtd_rotas) ]
@@ -668,12 +511,28 @@ if __name__ == '__main__':
 
         exibir_melhores_resultados(melhores_resultados, file=file)
         contador.end_timer()
-        print(f'Tempo total decorrido: {contador.timer:.2f}s')
-        print(f'Tempo total em seleção: {contador.total_selecao_timer:.2f}s')
-        print(f'Tempo total em crossover: {contador.total_crossover_timer:.2f}s')
-        print(f'Tempo total em mutação: {contador.total_mutacao_timer:.2f}s')
 
-        print(f'Tempo médio de geraçoes: {(contador.total_generacao_timer/geracoes):.2f}s')
+        Exibir.timer_ns('Tempo total decorrido:', contador.timer, file=file)
+        print()
+        
+        Exibir.timer_ns('Tempo total em seleção:', contador.total_selecao_timer, file=file)
+        Exibir.timer_ns('Tempo total em crossover:', contador.total_crossover_timer, file=file)
+        Exibir.timer_ns('Tempo total em mutação:', contador.total_mutacao_timer, file=file)
+        print()
+
+        Exibir.relative_time(
+            'Proporção:', 
+            contador.timer, 
+            {
+                'seleção':contador.total_selecao_timer, 
+                'crossover':contador.total_crossover_timer, 
+                'mutação':contador.total_mutacao_timer
+            }, 
+            file=file
+        )
+        print()
+
+        Exibir.timer_ns('Tempo médio de geraçoes:', (int(contador.total_generacao_timer/geracoes)), file=file)
 
     except Exception as e:
         print(f'Erro: {e}')
