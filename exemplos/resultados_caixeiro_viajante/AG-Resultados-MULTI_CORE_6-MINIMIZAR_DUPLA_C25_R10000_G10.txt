@@ -1,0 +1,43 @@
+
+    Parâmetros
+    Tipo problema: Custo.MINIMIZAR
+    Tipo processamento: MULTI_CORE (6)
+    Quantidade de cidades: 25
+    Cidades: ABCDEFGHIJKLMNOPQRSTUVWXY
+    Via: Via.DUPLA
+
+    Gerações: 10
+    Taxa mutação: 0.10%
+    Taxa crossover: 70.00%
+    Quantidade de rotas por geração: 10000
+
+    
+
+    Solução: ABCDEFGHIJKLMNOPQRSTUVWXYA  Custo: 27
+
+    Melhores Resultados
+            		           Rotas                  Custo       Média Custo    Crossovers      Mutações   
+
+    	Geração   1  	 AEKLPHDWXGQMNOFSYTUVRJICBA      60.00          70.71          3500            229     
+	Geração   2  	 ABTHIOJGFPVEQKLMNCUYDWXRSA      60.00          69.96          3500            234     
+	Geração   3  	 ABCMKPQVFYJIENLOGHWXDRSTUA      58.00          69.34          3500            241     
+	Geração   4  	 AIJRBYHQTUVWCFMNOPSLKDEXGA      58.00          68.84          3500            271     
+	Geração   5  	 ADQJKCRSTBLMNOIWYXFEPUVHGA      58.00          68.34          3500            225     
+	Geração   6  	 AFECRUGHXYLMNOVJKIWSTPQDBA      57.00          67.97          3500            259     
+	Geração   7  	 ABCELKJWXPQMNOFSYTUVRIHGDA      55.00          67.55          3500            241     
+	Geração   8  	 AYXFEQRSTWLMNOCBGHPIUVJKDA      54.00          67.18          3500            242     
+	Geração   9  	 ABCELKJWXPQMNOFSYTUVRIHGDA      55.00          66.80          3500            233     
+	Geração  10  	 AVWXYHJQENOPCDFGILMKRSTUBA      52.00          66.49          3500            250     
+
+
+    Total 
+        Crossovers: 35000
+        Mutações: 2425
+
+    
+Tempo total decorrido:  247845374100(nano seconds)  247.8454 (seconds)
+Tempo total em seleção:  938000(nano seconds)  0.0009 (seconds)
+Tempo total em crossover:  2197973800(nano seconds)  2.1980 (seconds)
+Tempo total em mutação:  765900(nano seconds)  0.0008 (seconds)
+Proporção: 0.000378% (seleção)   0.886833% (crossover)   0.000309% (mutação)   
+Tempo médio de geraçoes:  23587834010(nano seconds)  23.5878 (seconds)

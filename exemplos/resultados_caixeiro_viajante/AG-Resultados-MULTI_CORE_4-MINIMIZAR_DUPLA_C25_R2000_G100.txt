@@ -1,0 +1,133 @@
+
+    Parâmetros
+    Tipo problema: Custo.MINIMIZAR
+    Tipo processamento: MULTI_CORE (4)
+    Quantidade de cidades: 25
+    Cidades: ABCDEFGHIJKLMNOPQRSTUVWXY
+    Via: Via.DUPLA
+
+    Gerações: 100
+    Taxa mutação: 0.10%
+    Taxa crossover: 70.00%
+    Quantidade de rotas por geração: 2000
+
+    
+
+    Solução: ABCDEFGHIJKLMNOPQRSTUVWXYA  Custo: 27
+
+    Melhores Resultados
+            		           Rotas                  Custo       Média Custo    Crossovers      Mutações   
+
+    	Geração    1  	 ABEFQRPXWHCYSIDVUGLMTJKNOA      61.00          70.80           700            50      
+	Geração    2  	 AFGEIJTVUHCDBKYRSQMNOPXLWA      60.00          70.06           700            47      
+	Geração    3  	 APQRINOHXYTSWFVBUGDEJKLMCA      58.00          69.30           700            51      
+	Geração    4  	 ABEFVCKJYIHDRSTUGQMNOPXLWA      57.00          68.78           700            45      
+	Geração    5  	 ABCLJOEFGKMSYXWRHINDTUVPQA      57.00          68.16           700            45      
+	Geração    6  	 ABEFVCKJYIHDRSTUGQMNOPXLWA      57.00          67.82           700            41      
+	Geração    7  	 ABPGHEJKQCDXWISRTUVMNOLFYA      57.00          67.29           700            48      
+	Geração    8  	 ABEFWCVLYIHDRSTUGQMNOPXJKA      56.00          66.81           700            39      
+	Geração    9  	 ABCPSGYJKEFDHNOWXQRITUVLMA      55.00          66.32           700            59      
+	Geração   10  	 ABCPSGYJKEFDHNOWXQRITUVLMA      55.00          65.96           700            54      
+	Geração   11  	 ABCPSGYJKEFDHNOWXQRITUVLMA      55.00          65.61           700            38      
+	Geração   12  	 ABQRSTJFKGHIDECWUYMNOPXLVA      55.00          65.42           700            51      
+	Geração   13  	 ABQRSTJFKGHIDECVUYMNOPXLWA      54.00          65.00           700            50      
+	Geração   14  	 ABKYCDEWFHIJRSTUGQMNOPXLVA      53.00          64.85           700            39      
+	Geração   15  	 ABKYCDEWFHIJRSTUGQMNOPXLVA      53.00          64.56           700            44      
+	Geração   16  	 ABKYCDEWFHIJRSTUGQMNOPXLVA      53.00          64.35           700            42      
+	Geração   17  	 AGHBIJKDCETUVFYRSLMNOWXPQA      52.00          63.86           700            46      
+	Geração   18  	 ABCSFEDOMWXRJKLGHINYTUVPQA      53.00          63.81           700            46      
+	Geração   19  	 ABCSFEDOMWXRJKLGHINYTUVPQA      53.00          63.72           700            46      
+	Geração   20  	 ABVHIJLKDCEFRSTUGQMNOPXYWA      51.00          63.45           700            48      
+	Geração   21  	 AITVWUEFGHCDBKLRSJMNOPXYQA      53.00          63.06           700            40      
+	Geração   22  	 AIWVTUEFGHCDBKLRSJMNOPXYQA      52.00          62.83           700            36      
+	Geração   23  	 AYKVBEFCDHIJRSTUGLMNOWXPQA      51.00          62.58           700            42      
+	Geração   24  	 ABXOPIJKDEYCWQFGHNRSTUVLMA      51.00          62.43           700            49      
+	Geração   25  	 ABXOPIJKDEYCWQFGHNRSTUVLMA      51.00          62.18           700            46      
+	Geração   26  	 ABXOPIJKDEYCWQFGHNRSTUVLMA      51.00          61.71           700            47      
+	Geração   27  	 ABCDELVJKHFIRSTUGQMNOPWXYA      49.00          61.35           700            51      
+	Geração   28  	 ABCDELVJKHFIRSTUGQMNOPWXYA      49.00          61.10           700            54      
+	Geração   29  	 ABCDEUVXGHFYWSTOPQRNIJKLMA      47.00          60.84           700            47      
+	Geração   30  	 ABCDELVJKHFIRSTUGQMNOPWXYA      49.00          60.30           700            43      
+	Geração   31  	 ABCDELVJKHFIRSTUGQMNOPWXYA      49.00          59.90           700            50      
+	Geração   32  	 ABWDCEFGHITUJKLRSQMNOPXYVA      48.00          59.60           700            48      
+	Geração   33  	 AWBCDEFGHITUJKLRSQMNOPXYVA      45.00          59.42           700            55      
+	Geração   34  	 ABHVDEFCQIJKRSTUGLMNOPWXYA      47.00          59.12           700            38      
+	Geração   35  	 ABHVDEFCQIJKRSTUGLMNOPWXYA      47.00          58.78           700            40      
+	Geração   36  	 ABCDEUVIGHFTJKLRSQMNOPWXYA      47.00          58.48           700            39      
+	Geração   37  	 ABWCDEFGHITUJKLRSQMNOPXYVA      45.00          58.11           700            58      
+	Geração   38  	 ABCHVIJKDEFQRSTUGLMNOPWXYA      43.00          57.75           700            41      
+	Geração   39  	 ABWCDEFGHITUJKLRSVMNOPXYQA      45.00          57.40           700            48      
+	Geração   40  	 ABWCDEFGHITUJKLRSVMNOPXYQA      45.00          56.85           700            49      
+	Geração   41  	 ABWCDEFGHITUJKLRSVMNOPXYQA      45.00          56.69           700            49      
+	Geração   42  	 ABWCDEFGHITUJKLRSVMNOPXYQA      45.00          56.32           700            47      
+	Geração   43  	 AQBCDEFGHITUJKLRSVMNOPWXYA      43.00          55.92           700            44      
+	Geração   44  	 ABCDELFGHITUJKQRSVMNOPWXYA      43.00          55.42           700            51      
+	Geração   45  	 AQBCDEFGHITUJKLRSVMNOPWXYA      43.00          55.21           700            33      
+	Geração   46  	 ABCDELFGHITUJKQRSVMNOPWXYA      43.00          54.79           700            44      
+	Geração   47  	 AQBCDEFGHITUJKLRSVMNOPWXYA      43.00          54.69           700            51      
+	Geração   48  	 ABCDKJHIEFGQRSTUVLMNOPWXYA      40.00          54.12           700            40      
+	Geração   49  	 ABCDEVFQGHIJRSTUKLMNOPWXYA      41.00          53.75           700            46      
+	Geração   50  	 ABCDEVFQGHIJRSTUKLMNOPWXYA      41.00          53.50           700            48      
+	Geração   51  	 ABCDEGHJKFIQRSTUVLMNOPWXYA      41.00          53.03           700            57      
+	Geração   52  	 ABCDEGHJKFIQRSTUVLMNOPWXYA      41.00          52.76           700            52      
+	Geração   53  	 ABCDEGFWVHIJRSTUKLMNOPQXYA      41.00          52.29           700            46      
+	Geração   54  	 ABCDEGFWVHIJRSTUKLMNOPQXYA      41.00          51.96           700            53      
+	Geração   55  	 ABCDEVFGHITUJKQRSLMNOPWXYA      41.00          51.39           700            55      
+	Geração   56  	 ABWCDEFGVHIJRSTUKLMNOPQXYA      41.00          50.95           700            39      
+	Geração   57  	 ABCDEGFWVHIJRSTUKLMNOPQXYA      41.00          50.32           700            50      
+	Geração   58  	 ABCDEIHJKFGQRSTUVLMNOPWXYA      40.00          49.91           700            46      
+	Geração   59  	 ABCDEFWKGHIJRSTUVLMNOPQXYA      39.00          49.45           700            49      
+	Geração   60  	 ABCDEQRSTHIJUVFGKLMNOPWXYA      39.00          48.92           700            48      
+	Geração   61  	 ABCDEQRSTHIJUVFGKLMNOPWXYA      39.00          48.21           700            43      
+	Geração   62  	 ABCDEFQRGHIJKSTUVLMNOPWXYA      37.00          47.46           700            52      
+	Geração   63  	 ABCDEVWFGHIJRSTUKLMNOPQXYA      37.00          47.24           700            50      
+	Geração   64  	 ABCDEVWFGHIJRSTUKLMNOPQXYA      37.00          46.59           700            43      
+	Geração   65  	 ABCDEFGVWHIJRSTUKLMNOPQXYA      37.00          46.11           700            64      
+	Geração   66  	 ABCDEFVWGHIJRSTUKLMNOPQXYA      37.00          45.93           700            49      
+	Geração   67  	 ABCDEQRFGHIJKSTUVLMNOPWXYA      37.00          45.49           700            40      
+	Geração   68  	 ABCDEVWFGHIJRSTUKLMNOPQXYA      37.00          45.09           700            49      
+	Geração   69  	 ABCDEFJKGHIQRSTUVLMNOPWXYA      37.00          44.67           700            48      
+	Geração   70  	 ABCDEFGVWHIJRSTUKLMNOPQXYA      37.00          44.49           700            45      
+	Geração   71  	 ABCDEFGVWHIJRSTUKLMNOPQXYA      37.00          43.93           700            68      
+	Geração   72  	 ABCDEFVWGHIJRSTUKLMNOPQXYA      37.00          43.41           700            50      
+	Geração   73  	 ABCDEVWFGHIJRSTUKLMNOPQXYA      37.00          43.01           700            50      
+	Geração   74  	 ABCDEFVWGHIJRSTUKLMNOPQXYA      37.00          42.64           700            39      
+	Geração   75  	 ABCDEFGVWHIJRSTUKLMNOPQXYA      37.00          42.24           700            48      
+	Geração   76  	 ABCDEFGVWHIJRSTUKLMNOPQXYA      37.00          41.80           700            40      
+	Geração   77  	 ABCDEVWFGHIJRSTUKLMNOPQXYA      37.00          41.46           700            50      
+	Geração   78  	 ABCDEFVWGHIJRSTUKLMNOPQXYA      37.00          41.23           700            54      
+	Geração   79  	 ABCDEFGVWHIJRSTUKLMNOPQXYA      37.00          40.85           700            37      
+	Geração   80  	 ABCDEFVWGHIJRSTUKLMNOPQXYA      37.00          40.65           700            52      
+	Geração   81  	 ABCDEFGQRHIJKSTUVLMNOPWXYA      37.00          40.49           700            54      
+	Geração   82  	 ABCDEVWFGHIJRSTUKLMNOPQXYA      37.00          40.49           700            53      
+	Geração   83  	 ABCDEFVWGHIJRSTUKLMNOPQXYA      37.00          40.20           700            47      
+	Geração   84  	 ABCDEPQFGHIJRSTUKLMNOVWXYA      37.00          40.01           700            56      
+	Geração   85  	 ABCDEFPQGHIJRSTUKLMNOVWXYA      37.00          39.96           700            54      
+	Geração   86  	 ABCDEFGVWHIJRSTUKLMNOPQXYA      37.00          39.77           700            58      
+	Geração   87  	 ABCDEVWFGHIJRSTUKLMNOPQXYA      37.00          39.59           700            41      
+	Geração   88  	 ABCDEFVWGHIJRSTUKLMNOPQXYA      37.00          39.45           700            48      
+	Geração   89  	 ABCDEPQFGHIJRSTUKLMNOVWXYA      37.00          39.34           700            63      
+	Geração   90  	 ABCDEFGPQHIJRSTUKLMNOVWXYA      37.00          39.36           700            65      
+	Geração   91  	 ABCDEFGVWHIJRSTUKLMNOPQXYA      37.00          39.18           700            50      
+	Geração   92  	 ABCDEFGVWHIJRSTUKLMNOPQXYA      37.00          39.03           700            46      
+	Geração   93  	 ABCDEFGVWHIJRSTUKLMNOPQXYA      37.00          38.91           700            53      
+	Geração   94  	 ABCDEFPQGHIJRSTUKLMNOVWXYA      37.00          38.89           700            52      
+	Geração   95  	 ABCDEFGVWHIJRSTUKLMNOPQXYA      37.00          38.88           700            50      
+	Geração   96  	 ABCDEVWFGHIJRSTUKLMNOPQXYA      37.00          38.83           700            49      
+	Geração   97  	 ABCDEPQFGHIJRSTUKLMNOVWXYA      37.00          38.66           700            28      
+	Geração   98  	 ABCDEFVWGHIJRSTUKLMNOPQXYA      37.00          38.65           700            42      
+	Geração   99  	 ABCDEFGVWHIJRSTUKLMNOPQXYA      37.00          38.63           700            48      
+	Geração  100  	 ABCDEQRFGHIJKSTUVLMNOPWXYA      37.00          38.59           700            69      
+
+
+    Total 
+        Crossovers: 70000
+        Mutações: 4795
+
+    
+Tempo total decorrido:  158183783800(nano seconds)  158.1838 (seconds)
+Tempo total em seleção:  6585100(nano seconds)  0.0066 (seconds)
+Tempo total em crossover:  2352978200(nano seconds)  2.3530 (seconds)
+Tempo total em mutação:  5040900(nano seconds)  0.0050 (seconds)
+Proporção: 0.00416% (seleção)   1.48750% (crossover)   0.00319% (mutação)   
+Tempo médio de geraçoes:  1480330204(nano seconds)  1.4803 (seconds)

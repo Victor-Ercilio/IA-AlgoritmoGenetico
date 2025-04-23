@@ -1,0 +1,83 @@
+
+    Parâmetros
+    Tipo problema: Custo.MINIMIZAR
+    Tipo processamento: MULTI_CORE (4)
+    Quantidade de cidades: 25
+    Cidades: ABCDEFGHIJKLMNOPQRSTUVWXY
+    Via: Via.DUPLA
+
+    Gerações: 50
+    Taxa mutação: 0.10%
+    Taxa crossover: 70.00%
+    Quantidade de rotas por geração: 5000
+
+    
+
+    Solução: ABCDEFGHIJKLMNOPQRSTUVWXYA  Custo: 27
+
+    Melhores Resultados
+            		           Rotas                  Custo       Média Custo    Crossovers      Mutações   
+
+    	Geração   1  	 ABUVSDERIWCTLNMJKYGHXOPQFA      60.00          70.72          1750            123     
+	Geração   2  	 ABCDTUYMXOPVNSGRHIJQFKLWEA      59.00          69.92          1750            114     
+	Geração   3  	 ABXMNUSTKLVEDCGOPFJWQRYHIA      59.00          69.18          1750            118     
+	Geração   4  	 ABFWYHGCDMLNSVIJKRXEOPQTUA      59.00          68.62          1750            123     
+	Geração   5  	 AMFGBCDSNXYJKHILWVEROPQTUA      56.00          68.13          1750            123     
+	Geração   6  	 AHMNBCDSTUVWGYELJKRIXOPQFA      55.00          67.66          1750            105     
+	Geração   7  	 AHMNBCDSTUVWGYELJKRIXOPQFA      55.00          67.32          1750            122     
+	Geração   8  	 AHMNBCDSTUVWGYELJKRIXOPQFA      55.00          67.02          1750            138     
+	Geração   9  	 AHMNBCDSTUVWGYELJKRIXOPQFA      55.00          66.78          1750            131     
+	Geração  10  	 AHMNBCDSTUVWGYEFJKRIXOPQLA      53.00          66.49          1750            122     
+	Geração  11  	 AHMNBCDSTUVWGYEFJKRIXOPQLA      53.00          66.18          1750            121     
+	Geração  12  	 AHMNBCDSTUVWGYEFJKRIXOPQLA      53.00          65.86          1750            122     
+	Geração  13  	 ABSIDEHWXYCFGVJKLMNROPQTUA      51.00          65.57          1750            106     
+	Geração  14  	 ABSIDEHWXYCFGVJKLMNROPQTUA      51.00          65.29          1750            124     
+	Geração  15  	 ABSIDEHWXYCFGVJKLMNROPQTUA      51.00          64.96          1750            123     
+	Geração  16  	 ABSIDEHWXYCFGVJKLMNROPQTUA      51.00          64.62          1750            107     
+	Geração  17  	 AQMNBCDSTUVWPRJKOLXYEFGHIA      49.00          64.40          1750            105     
+	Geração  18  	 AQMNBCDSTUVWPRJKOLXYEFGHIA      49.00          64.03          1750            101     
+	Geração  19  	 AQMNBCDSTUVWPRJKOLXYEFGHIA      49.00          63.77          1750            127     
+	Geração  20  	 AQMNBCDSTUVWPRJKOLXYEFGHIA      49.00          63.50          1750            107     
+	Geração  21  	 ABVJKLMOPGHENCDFIWXYQRSTUA      49.00          63.23          1750            115     
+	Geração  22  	 AQMNBCDSTUVWPRJKOLXYEFGHIA      49.00          62.96          1750            112     
+	Geração  23  	 AKTYUVWXRGHIJCDEFSLMNOPQBA      46.00          62.80          1750            109     
+	Geração  24  	 AKTYUVWXRGHIJCDEFSLMNOPQBA      46.00          62.58          1750            130     
+	Geração  25  	 AKTYUVWXRGHIJCDEFSLMNOPQBA      46.00          62.24          1750            134     
+	Geração  26  	 AKTYUVWXRGHIJCDEFSLMNOPQBA      46.00          62.02          1750            124     
+	Geração  27  	 AKTYUVWXRGHIJCDEFSLMNOPQBA      46.00          61.67          1750            119     
+	Geração  28  	 AKYTUVWXRGHIJCDEFSLMNOPQBA      44.00          61.35          1750            123     
+	Geração  29  	 AKYTUVWXRGHIJCDEFSLMNOPQBA      44.00          61.06          1750            112     
+	Geração  30  	 AKYTUVWXRGHIJCDEFSLMNOPQBA      44.00          60.74          1750            112     
+	Geração  31  	 AKYTUVWXRGHIJCDEFSLMNOPQBA      44.00          60.38          1750            115     
+	Geração  32  	 AKYTUVWXRGHIJCDEFSLMNOPQBA      44.00          60.09          1750            117     
+	Geração  33  	 AKYTUVWXRGHIJCDEFSLMNOPQBA      44.00          59.85          1750            115     
+	Geração  34  	 AYKTUVWXRGHIJCDEFSLMNOPQBA      44.00          59.38          1750            128     
+	Geração  35  	 AKYTUVWXRGHIJCDEFSLMNOPQBA      44.00          59.06          1750            114     
+	Geração  36  	 AYKTUVWXRGHIJCDEFSLMNOPQBA      44.00          58.70          1750            112     
+	Geração  37  	 AKYTUVWXRGHIJCDEFSLMNOPQBA      44.00          58.20          1750            104     
+	Geração  38  	 AYKTUVWXRGHIJCDEFSLMNOPQBA      44.00          57.73          1750            111     
+	Geração  39  	 AYKTUVWXRGHIJCDEFSLMNOPQBA      44.00          57.30          1750            104     
+	Geração  40  	 AKYTUVWXRGHIJCDEFSLMNOPQBA      44.00          56.96          1750            124     
+	Geração  41  	 AYKTUVWXRGHIJCDEFSLMNOPQBA      44.00          56.52          1750            110     
+	Geração  42  	 ARKTUVWXYGHIJCDEFSLMNOPQBA      42.00          56.10          1750            123     
+	Geração  43  	 ARKTUVWXYGHIJCDEFSLMNOPQBA      42.00          55.52          1750            132     
+	Geração  44  	 ARKTUVWXYGHIJCDEFSLMNOPQBA      42.00          55.28          1750            116     
+	Geração  45  	 ARKTUVWXYGHIJCDEFSLMNOPQBA      42.00          54.66          1750            123     
+	Geração  46  	 AKYTUVWXRSHIJCDEFGLMNOPQBA      42.00          54.18          1750            105     
+	Geração  47  	 AKRTUVWXYGHIJCDEFSLMNOPQBA      42.00          53.66          1750            132     
+	Geração  48  	 AKYTUVWXRSHIJCDEFGLMNOPQBA      42.00          53.01          1750            127     
+	Geração  49  	 AYSTUVWXRGHIJCDEFKLMNOPQBA      40.00          52.48          1750            119     
+	Geração  50  	 AYSTUVWXRGHIJCDEFKLMNOPQBA      40.00          51.81          1750            109     
+
+
+    Total 
+        Crossovers: 87500
+        Mutações: 5892
+
+    
+Tempo total decorrido:  1169039103300(nano seconds)  1169.0391 (seconds)
+Tempo total em seleção:  3198600(nano seconds)  0.0032 (seconds)
+Tempo total em crossover:  11586624400(nano seconds)  11.5866 (seconds)
+Tempo total em mutação:  85358110200(nano seconds)  85.3581 (seconds)
+Proporção: 0.000274% (seleção)   0.991124% (crossover)   7.301562% (mutação)   
+Tempo médio de geraçoes:  23372181268(nano seconds)  23.3722 (seconds)

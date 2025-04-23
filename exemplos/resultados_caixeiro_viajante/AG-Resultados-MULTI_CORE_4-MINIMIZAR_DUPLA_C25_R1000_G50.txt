@@ -1,0 +1,81 @@
+
+    Parâmetros
+    Tipo problema: Custo.MINIMIZAR
+    Tipo processamento: MULTI_CORE (4)
+    Quantidade de cidades: 25
+    Cidades: ABCDEFGHIJKLMNOPQRSTUVWXY
+    Via: Via.DUPLA
+
+    Gerações: 50
+    Taxa mutação: 0.10%
+    Taxa crossover: 70.00%
+    Quantidade de rotas por geração: 1000
+
+    
+
+    Solução: ABCDEFGHIJKLMNOPQRSTUVWXYA  Custo: 27
+
+    Melhores Resultados
+            		           Rotas                  Custo       Média Custo    Crossovers      Mutações   
+
+    	Geração   0  	 ATUSFRBQMNOPXYGVCDEKIHWLJA      60.00          70.84            0              0      
+	Geração   1  	 ATUSFRBQMNOPXYGVCDEKIHWLJA      60.00          70.12            0              0      
+	Geração   2  	 AKLOPDIUTYSHNFGRQVWXMJECBA      61.00          69.50            0              0      
+	Geração   3  	 AQEDUTKOVIJBCHLMNFGSRWPXYA      60.00          69.03            0              0      
+	Geração   4  	 ABHWJTUIFPQRSKCDVMNEXYGLOA      59.00          68.38            0              0      
+	Geração   5  	 ABHWJTUIFPQRSKCDVMNEXYGLOA      59.00          67.82            0              0      
+	Geração   6  	 ARSTJXYULFGBOMWVCDEKIHPQNA      59.00          67.50            0              0      
+	Geração   7  	 ABJMNOIPFVWUEYLGHQRSTCDKXA      57.00          66.93            0              0      
+	Geração   8  	 ABLMNOKPFVWUECTGHQRSDXYIJA      55.00          66.61            0              0      
+	Geração   9  	 ARSTMLUVGJFWXOYBCDEKIHPQNA      57.00          66.41            0              0      
+	Geração  10  	 ABUIHKFJOPQRSGCDLMNEXYTVWA      54.00          66.13            0              0      
+	Geração  11  	 ABUIHKFJOPQRSGCDLMNEXYTVWA      54.00          65.91            0              0      
+	Geração  12  	 ABLUCEFGNPQRSTOMKVWXJDHIYA      55.00          65.89            0              0      
+	Geração  13  	 ABLUCEFGNPQRSTOMKVWXJDHIYA      55.00          65.50            0              0      
+	Geração  14  	 ABLUCEFGNPQRSTOMKVWXJDHIYA      55.00          65.31            0              0      
+	Geração  15  	 ABLUCEFGNPQRSTOMKVWXJDHIYA      55.00          65.14            0              0      
+	Geração  16  	 ABLUCEFGNPQRSTOMKVWXJDHIYA      55.00          64.72            0              0      
+	Geração  17  	 ABCULEFGNPQRSTOMKVWXJDHIYA      53.00          64.24            0              0      
+	Geração  18  	 ABCULEFGNPQRSTOMKVWXJDHIYA      53.00          63.84            0              0      
+	Geração  19  	 ABCULEFGYPQRSTOMKVWXJDHINA      53.00          63.75            0              0      
+	Geração  20  	 ABCULEFGYPQRSTOMKVWXJDHINA      53.00          63.66            0              0      
+	Geração  21  	 ABCULEFGNPQRSTOMKVWXJDHIYA      53.00          63.69            0              0      
+	Geração  22  	 ABCULEFGNPQRSTOMKVWXYDHIJA      49.00          63.21            0              0      
+	Geração  23  	 ABCULEFGNPQRSTOMKVWXYHDIJA      51.00          63.16            0              0      
+	Geração  24  	 APQULEFGHIJRSTDMKVWBCNOXYA      51.00          63.10            0              0      
+	Geração  25  	 APQULEFGHIJRSTDMKVWBCNOXYA      51.00          62.98            0              0      
+	Geração  26  	 APQULEFGHIJRSTDMKVWBCNOXYA      51.00          62.67            0              0      
+	Geração  27  	 APQULEFGHIJRSTDMKVWBCNOXYA      51.00          62.69            0              0      
+	Geração  28  	 APQULEFGHIJRSTDMKVWBCNOXYA      51.00          62.38            0              0      
+	Geração  29  	 ABCUOEFGNPQRSTLMKVWXYDHIJA      47.00          61.81            0              0      
+	Geração  30  	 ABCUOEFGNPQRSTLMKVWXYDHIJA      47.00          61.54            0              0      
+	Geração  31  	 ABCUOEFGNPQRSTLMKVWXYDHIJA      47.00          61.31            0              0      
+	Geração  32  	 ABCUOEFGNPQRSTLMKVWXYDHIJA      47.00          60.97            0              0      
+	Geração  33  	 ABCUOEFGNPQRSTLMKVWXYDHIJA      47.00          60.85            0              0      
+	Geração  34  	 ABCULEFGKPQRSTVMNOWXYDHIJA      47.00          60.73            0              0      
+	Geração  35  	 ABCULEFGKPQRSTVMNOWXYDHIJA      47.00          60.22            0              0      
+	Geração  36  	 ABCUOEFGNPQRSTLMKVWXYDHIJA      47.00          59.83            0              0      
+	Geração  37  	 ABCUOEFGNPQRSTLMKVWXYDHIJA      47.00          58.85            0              0      
+	Geração  38  	 ABCUOEFGNPQRSTLMKVWXYDHIJA      47.00          58.90            0              0      
+	Geração  39  	 ABCUOEFGNPQRSTLMKVWXYDHIJA      47.00          57.99            0              0      
+	Geração  40  	 ABCUOEFGNPQRSTLMKVWXYDHIJA      47.00          57.40            0              0      
+	Geração  41  	 ABCUOEFGNPQRSTLMKVWXYDHIJA      47.00          56.58            0              0      
+	Geração  42  	 ABCULEFGOPQRSTNMKVWXYDHIJA      46.00          55.85            0              0      
+	Geração  43  	 ABCUNEFGOPQRSTLMKVWXYDHIJA      45.00          55.47            0              0      
+	Geração  44  	 ABCUNEFGOPQRSTLMKVWXYDHIJA      45.00          54.65            0              0      
+	Geração  45  	 ABCUNEFGOPQRSTLMKVWXYDHIJA      45.00          53.96            0              0      
+	Geração  46  	 ABCUNEFGOPQRSTLMKVWXYDHIJA      45.00          53.43            0              0      
+	Geração  47  	 AUBCDEFGOPQRSTLMKVWXYNHIJA      43.00          52.91            0              0      
+	Geração  48  	 AUBCDEFGOPQRSTLMKVWXYNHIJA      43.00          52.29            0              0      
+	Geração  49  	 ABKUVEFGHPQRSTLMNOWXYCDIJA      43.00          51.69            0              0      
+
+
+    Total 
+        Crossovers: 0
+        Mutações: 0
+
+    
+Tempo total decorrido:  61972161700(nano seconds)  61.9722 (seconds)
+Tempo total em seleção:  0(nano seconds)  0.0000 (seconds)
+Tempo total em crossover:  0(nano seconds)  0.0000 (seconds)
+Tempo total em mutação:  0(nano seconds)  0.0000 (seconds)

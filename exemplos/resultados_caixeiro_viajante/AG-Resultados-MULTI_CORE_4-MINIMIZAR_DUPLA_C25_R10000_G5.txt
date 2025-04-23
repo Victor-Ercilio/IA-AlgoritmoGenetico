@@ -1,0 +1,36 @@
+
+    Parâmetros
+    Tipo problema: Custo.MINIMIZAR
+    Tipo processamento: MULTI_CORE (4)
+    Quantidade de cidades: 25
+    Cidades: ABCDEFGHIJKLMNOPQRSTUVWXY
+    Via: Via.DUPLA
+
+    Gerações: 5
+    Taxa mutação: 0.10%
+    Taxa crossover: 70.00%
+    Quantidade de rotas por geração: 10000
+
+    
+
+    Solução: ABCDEFGHIJKLMNOPQRSTUVWXYA  Custo: 27
+
+    Melhores Resultados
+            		           Rotas                  Custo       Média Custo    Crossovers      Mutações   
+
+    	Geração  1  	 AWNOPFGQRVCDJKLHMUTXIESYBA      59.00          70.70            0              0      
+	Geração  2  	 ABDOPLRSKQEUVYGHIJCWTMNXFA      59.00          69.98            0              0      
+	Geração  3  	 ADEUVWYBCIMJRFGHSNOTXPQKLA      57.00          69.41            0              0      
+	Geração  4  	 AGPQKLMHSTUIJXOYWVDEFNRBCA      56.00          68.93            0              0      
+	Geração  5  	 AGPQKLMHSTUIJXOYWVDEFNRBCA      56.00          68.47            0              0      
+
+
+    Total 
+        Crossovers: 0
+        Mutações: 0
+
+    
+Tempo total decorrido:  55018927400(nano seconds)  55.0189 (seconds)
+Tempo total em seleção:  0(nano seconds)  0.0000 (seconds)
+Tempo total em crossover:  0(nano seconds)  0.0000 (seconds)
+Tempo total em mutação:  0(nano seconds)  0.0000 (seconds)
