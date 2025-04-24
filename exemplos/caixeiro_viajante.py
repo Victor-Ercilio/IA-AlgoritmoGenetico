@@ -281,7 +281,7 @@ def criar_prox_geracao_mult_process(trabalhadores: int, rotas: list[Rotas], taxa
         if contador:
             contador.start_selecao_timer()
         total = individuos - len(prox_geracao)
-        selecionados = pool.imap(selecionar_rota, (rotas for _ in range(total)), chunksize=total )
+        selecionados = pool.imap(selecionar_rota, (rotas for _ in range(total)), chunksize=trabalhadores )
         if contador:
             contador.end_selecao_timer()
 
@@ -292,7 +292,7 @@ def criar_prox_geracao_mult_process(trabalhadores: int, rotas: list[Rotas], taxa
             contador.start_crossover_timer()
         quantidade_crossovers = calcular_quantidade_crossovers(taxa_cros, individuos, trabalhadores)
 
-        cruzados: list[tuple[Rotas, Rotas]] = pool.starmap(crossover, ((prox_geracao.pop(0), prox_geracao.pop(1)) for _ in range(quantidade_crossovers)), chunksize=quantidade_crossovers)
+        cruzados: list[tuple[Rotas, Rotas]] = pool.starmap(crossover, ((prox_geracao.pop(0), prox_geracao.pop(1)) for _ in range(quantidade_crossovers)), chunksize=trabalhadores)
         if contador:
             contador.crossover(quantidade_crossovers)
             contador.end_crossover_timer()
