@@ -183,7 +183,7 @@ def selecionar_rota(rotas: list[Rotas]) -> Rotas:
 
 def crossover(rota_1: Rotas, rota_2: Rotas, corte: int=None) -> tuple[Rotas, Rotas]:
     if not corte:
-        corte = randrange(1,len(rota_1.rota)-1)
+        corte = randrange(1,len(rota_1.rota))
     ini1 = rota_1.rota[:corte]
     ini2 = rota_2.rota[:corte]
     fim1 = rota_1.rota[corte:]
