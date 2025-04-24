@@ -351,33 +351,6 @@ def exibir_geracao(geracao: list[Rotas], file=None) -> None:
         print(forma.format(r.rota, tam_rota, r.custo, r.custo_prop, r.nota, r.nota_prop), file=file)
 
 
-def exibir_geracao_numero(tag: str, atual:int, total: int):
-    """
-    Exibe uma tag fixa e vai atualizando a numeração na mesma 
-    linha de exibição.
-    Utilizar quando a quantidade de gerações é muito grande e
-    não se deseja ver cada individuo de cada geração, mas, sim,
-    visualizar o progresso das gerações (em um terminal).
-    """
-    tam = len(str(total))
-    limpa_num = '\b'*tam + ' '*tam + '\b'*tam
-    
-    tag = f'{tag} '
-    limpa_tag = '\b'*len(tag) + ' '*len(tag) + '\b'*len(tag)
-
-    intervalo = f' de {total}'
-    voltar_intervalo = '\b'*len(intervalo)
-    limpa_intervalo = ' '*len(intervalo) + voltar_intervalo
-
-    if atual == 1:
-        print(f'{tag}{(atual):0>{tam}}{intervalo}', end='', flush=True)
-        print(voltar_intervalo, end='', flush=True)
-    elif atual == total:
-        print(f'{limpa_intervalo}{limpa_num}{limpa_tag}', end='\n', flush=True)
-    else:
-        print(f'{limpa_num}{(atual):0>{tam}}', end='', flush=True)
-
-
 def exibir_problema(taxa_mutacao:float, taxa_crossover:float, total_rotas:int, geracoes:int, processamento:Processamento, cores:int, file=None) -> None:
     print(f"""
     Parâmetros
