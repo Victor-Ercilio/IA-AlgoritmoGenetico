@@ -260,7 +260,8 @@ def calcular_quantidade_crossovers(taxa:float, trabalhos:int, trabalhadores:int)
     return quantidade
 
 
-def mutacao(rota: Rotas, taxa:float, contador:Contador=None) -> Rotas:
+def mutacao(rota: Rotas, taxa:float) -> Rotas:
+    contador = Contador()
     rota.aplicar_mutacao(taxa=taxa, contador=contador)
     return rota, contador
 
@@ -304,7 +305,7 @@ def criar_prox_geracao_mult_process(trabalhadores: int, rotas: list[Rotas], taxa
         if contador:
             contador.start_mutacao_timer()
         total = len(prox_geracao)
-        mutados: list[tuple[Rotas, Contador]] = pool.starmap(mutacao, ((prox_geracao.pop(0), taxa_mut, Contador()) for _ in range(total)), chunksize=total )
+        mutados: list[tuple[Rotas, Contador]] = pool.starmap(mutacao, ((prox_geracao.pop(0), taxa_mut) for _ in range(total)), chunksize=trabalhadores )
         if contador:
             contador.end_mutacao_timer()
 
