@@ -316,6 +316,57 @@ def criar_prox_geracao_mult_process(trabalhadores: int, rotas: list[Rotas], taxa
             prox_geracao.append(individuo)
 
     return prox_geracao
+    
+
+def evoluir(geracoes:int, trabalhadores: int, rotas: list[Rotas], taxa_mut: float, taxa_cros: float, contador: Contador=None) -> list[Rotas]:
+    melhores_resultados = []
+    mutacao_taxa_fixa = functools.partial(mutacao, taxa=taxa_mut)
+    exibir_progresso = Exibir.progresso(1, geracoes, 'Geração')
+    with mp.Pool(processes=trabalhadores) as pool:
+        for geracao in range(1, geracoes+1):
+            contador.start_generation_timer()
+            individuos: int = len(rotas)
+            prox_geracao: list[Rotas] = []
+
+            contador.start_selecao_timer()
+            selecionados = pool.imap(selecionar_rota, (rotas for _ in range(individuos)), chunksize=individuos )
+            contador.end_selecao_timer()
+           
+            for selecionado in selecionados:
+                prox_geracao.append(selecionado)
+            
+            quantidade_crossovers = calcular_quantidade_crossovers(taxa_cros, individuos, trabalhadores)
+            contador.crossover(quantidade_crossovers)
+            contador.start_crossover_timer()
+            cruzados: list[tuple[Rotas, Rotas]] = pool.starmap(crossover, ((prox_geracao.pop(0), prox_geracao.pop(1)) for _ in range(quantidade_crossovers)), chunksize=quantidade_crossovers)
+            contador.end_crossover_timer()
+
+
+            for c1, c2 in cruzados:
+                prox_geracao.append(c1)
+                prox_geracao.append(c2)
+            
+
+            contador.start_mutacao_timer()
+            total = len(prox_geracao)
+            mutados: list[tuple[Rotas, Contador]] = pool.imap(mutacao_taxa_fixa, (prox_geracao.pop(0) for _ in range(total)), chunksize=total )
+            contador.end_mutacao_timer()
+
+
+            for individuo, cont in mutados:
+                prox_geracao.append(individuo)
+                contador.mutacao(cont.mutacoes)
+
+            contador.end_generation_timer()
+            rotas = prox_geracao
+            avaliar_rotas(rotas)
+            
+            media = sum([r.custo for r in rotas]) / len(rotas)
+            melhores_resultados.append((geracao, rotas[0].copy(), media, contador.crossovers, contador.mutacoes))
+            exibir_progresso(geracao)
+            contador.reset()
+
+    return rotas, melhores_resultados
 
 
 def hilight_resultado() -> str:
