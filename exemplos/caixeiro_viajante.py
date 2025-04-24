@@ -483,11 +483,10 @@ def executar_mult_processor(trabalhadores:int, rotas: list[Rotas], taxa_mutacao:
 
 if __name__ == '__main__':
     try:
-        terminal_size = os.get_terminal_size(sys.stdout.fileno()).columns
-        print(f'{{:-^{terminal_size}}}'.format(' INICIO DO PROGRAMA '))
-        processamento: Processamento = Processamento.SINGLE_CORE
-        cores: int = 4
-        qtd_rotas: int = 1200
+        Exibir.divisor(' INICIO DO PROGRAMA ')
+        processamento: Processamento = Processamento.MULTI_CORE
+        cores: int = 5
+        qtd_rotas: int = 8000
         geracoes: int = 100
         geracao: int = 0
         taxa_mutacao: float = 0.001
@@ -540,24 +539,25 @@ if __name__ == '__main__':
         Exibir.timer_ns('Tempo total decorrido:', contador.timer, file=file)
         print()
         
-        Exibir.timer_ns('Tempo total em seleção:', contador.total_selecao_timer, file=file)
-        Exibir.timer_ns('Tempo total em crossover:', contador.total_crossover_timer, file=file)
-        Exibir.timer_ns('Tempo total em mutação:', contador.total_mutacao_timer, file=file)
-        print()
+        if processamento == Processamento.MULTI_CORE:
+            Exibir.timer_ns('Tempo total em seleção:', contador.total_selecao_timer, file=file)
+            Exibir.timer_ns('Tempo total em crossover:', contador.total_crossover_timer, file=file)
+            Exibir.timer_ns('Tempo total em mutação:', contador.total_mutacao_timer, file=file)
+            print()
 
-        Exibir.relative_time(
-            'Proporção:', 
-            contador.timer, 
-            {
-                'seleção':contador.total_selecao_timer, 
-                'crossover':contador.total_crossover_timer, 
-                'mutação':contador.total_mutacao_timer
-            }, 
-            file=file
-        )
-        print()
+            Exibir.relative_time(
+                'Proporção:', 
+                contador.timer, 
+                {
+                    'seleção':contador.total_selecao_timer, 
+                    'crossover':contador.total_crossover_timer, 
+                    'mutação':contador.total_mutacao_timer
+                }, 
+                file=file
+            )
+            print()
 
-        Exibir.timer_ns('Tempo médio de geraçoes:', (int(contador.total_generacao_timer/geracoes)), file=file)
+            Exibir.timer_ns('Tempo médio de geraçoes:', (int(contador.total_generacao_timer/geracoes)), file=file)
 
     except Exception as e:
         print(f'Erro: {e}')
@@ -565,4 +565,4 @@ if __name__ == '__main__':
     finally:
         if file:
             file.close()
-        print(f'{{:-^{terminal_size}}}'.format(' FIM DO PROGRAMA '))
+        Exibir.divisor(' FIM DO PROGRAMA ')
